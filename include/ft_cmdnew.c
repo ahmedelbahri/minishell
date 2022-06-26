@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_numberize.c                                     :+:      :+:    :+:   */
+/*   ft_cmdnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/20 17:39:02 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/06/20 22:53:53 by ahel-bah         ###   ########.fr       */
+/*   Created: 2022/06/26 18:56:54 by ahel-bah          #+#    #+#             */
+/*   Updated: 2022/06/26 18:57:11 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_numberize(t_list *arg)
+t_cmd	*ft_cmdnew(char **content, int quoted)
 {
-	int	i;
+	t_cmd	*cmd;
 
-	i = 1;
-	while (arg != NULL)
-	{
-		arg->num = i;
-		arg = arg->next;
-		i++;
-	}
+	cmd = malloc(sizeof(t_cmd));
+	if (cmd == 0)
+		return (0);
+	cmd->content = content;
+	cmd->quoted = quoted;
+	cmd->next = NULL;
+	return (cmd);
 }

@@ -6,40 +6,54 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:42:55 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/06/22 15:53:42 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/06/26 19:10:47 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	ft_previous(t_list **lst)
-// {
-// 	t_list	*lst1;
-// 	t_list	*lst2;
+//////////////////delete//////////////////////
+void	printdub(char **content)
+{
+	int	i;
 
-// 	lst1 = (*lst);
-// 	lst2 = (*lst)->next;
-// 	while (lst2 != NULL)
-// 	{
-// 		lst2->previous = lst1;
-// 		lst1 = lst1->next;
-// 		lst2 = lst2->next;
-// 	}
-// }
+	i = 0;
+	while (content != NULL && content[i] != NULL)
+	{
+		printf("%i content[i] = |%s|\n", i, content[i]);
+		i++;
+	}
+	printf("%i content[i] = |%s|\n", i, content[i]);
+}
 
-void	ft_print(t_list *arg)///////////////delete
+void	ft_print(t_list *arg)
 {
 	while (arg != NULL)
 	{
-		printf("|%s|%d|\n", arg->content, arg->quoted);
+		printf("|%s|\n", arg->content);
 		arg = arg->next;
 	}
 }
 
+void	ft_print_cmd(t_cmd *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd != NULL)
+	{
+		printdub(cmd->content);
+		if (cmd->next)
+			printf("__\n");
+		cmd = cmd->next;
+	}
+}
+//////////////////////////////////////////////
+
 void	check_line(char *buff)
 {
 	t_list	*arg;
-	t_list	*tmp;
+	t_cmd	*cmd;
 
 	arg = NULL;
 	if (buff[0])
@@ -47,13 +61,15 @@ void	check_line(char *buff)
 		add_history(buff);
 		if (lex(buff, &arg) || only_space(arg))
 			ft_lstclear(&arg, free);
-		// ft_previous(&arg);
 		else
 		{
-			tmp = arg;
-			clean_line(&tmp);
+			cmd = split_pipe(arg);
 			ft_print(arg);
 			ft_lstclear(&arg, free);
+			printf("-----------------\n");
+			ft_print_cmd(cmd);
+			printf("-----------------\n");
+			ft_cmdclear(&cmd, free);
 		}
 	}
 }
@@ -81,7 +97,10 @@ int	main(int ac, char *av[], char *env[])
 		buff = readline("\033[0;34m\e[1mminishell\e[m\
 @\033[0;32m\e[1mahel-bah\e[m:~$ ");
 		if ((!buff) || ft_strcmp(buff, "exit") == 0)
+		{
+			printf("exit\n");
 			exit(0);
+		}
 		check_line(buff);
 		free(buff);
 	}

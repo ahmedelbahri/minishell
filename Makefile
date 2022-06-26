@@ -6,7 +6,7 @@
 #    By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/19 15:18:51 by ahel-bah          #+#    #+#              #
-#    Updated: 2022/06/22 19:40:03 by ahel-bah         ###   ########.fr        #
+#    Updated: 2022/06/26 19:12:54 by ahel-bah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,15 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 SRC = minishell.c \
 \
-	  lexing/single_quoting.c lexing/double_quoting.c lexing/collect_args.c \
-	  lexing/lex.c lexing/concatenate.c \
+	  lexing/single_quoting.c lexing/double_quoting.c lexing/collect_args.c\
+	  lexing/lex.c lexing/concatenate.c lexing/clean_line.c lexing/define_opp.c\
 \
-	  parsing/clean_line.c parsing/define_opp.c \
+	   parsing/split_pipe.c parsing/reallocate_cmd.c\
 \
-	  include/ft_strcmp.c include/ft_lstinsert.c include/ft_dellst.c \
-	  include/spaces.c include/ft_numberize.c include/ft_is_operator.c
+	  include/ft_strcmp.c include/ft_lstinsert.c include/ft_dellst.c\
+	  include/spaces.c include/ft_is_operator.c include/ft_cmdclear.c\
+	  include/ft_dubstrlen.c include/ft_cmdnew.c include/ft_cmdlast.c\
+	  include/ft_cmdadd_back.c include/ft_cmddelone.c
 
 OBJ = $(SRC:.c=.o)
 	
@@ -36,10 +38,7 @@ $(NAME): $(OBJ)
 	$(CC)  $(OBJ) -L$(shell brew --prefix readline)/lib -lreadline -o $(NAME) $(LIBFT)
 
 $(LIBFT):
-	@$(shell cd libft && make fclean && make bonus && make clean)
-
-fcleanlib:
-	@$(shell cd libft && make fclean)
+	@$(shell cd libft && make bonus && make clean)
 
 update:
 	$(shell cd ~/goinfre && brew update)
@@ -54,7 +53,8 @@ clean:
 	$(RM) $(OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) 
+#	$(LIBFT)
 
 re: fclean all
 

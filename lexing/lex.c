@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 19:44:22 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/06/22 19:20:58 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/06/24 19:16:48 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	is_space(char *buff, t_lex *lex, t_list **arg)
 int	lex(char *buff, t_list **arg)
 {
 	t_lex	lex;
-	t_list	**tmp;
+	t_list	*tmp;
 
 	lex.i = 0;
 	while (buff[lex.i])
@@ -40,8 +40,9 @@ int	lex(char *buff, t_list **arg)
 				return (1);
 		collect_args(buff, &lex, arg);
 	}
-	tmp = arg;
-	// concatenate(*arg);
+	concatenate(*arg);
 	del_spaces(arg);
+	tmp = *arg;
+	clean_line(&tmp);
 	return (0);
 }

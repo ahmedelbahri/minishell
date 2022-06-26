@@ -6,26 +6,26 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 16:46:18 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/06/22 15:56:09 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/06/26 19:35:01 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	reallocate(t_list **arg, char *new)
+static void	reallocate(t_list **arg, char *new)
 {
 	free((*arg)->content);
 	(*arg)->content = new;
 }
 
-void	insert_allocat(t_list **arg, int i)
+static void	insert_allocat(t_list **arg, int i)
 {
 	ft_lstinsert(arg, ft_lstnew(ft_substr((*arg)->content, i,
 				ft_strlen((*arg)->content)), 0));
 	reallocate(arg, ft_substr((*arg)->content, 0, i));
 }
 
-int	ft_tbd(t_list **arg, int *i, char c)
+static int	ft_tbd(t_list **arg, int *i, char c)
 {
 	if ((*i) == 0 && (*arg)->content[(*i)] == c)
 	{
@@ -48,7 +48,7 @@ void	redirections(t_list **arg)
 	int	i;
 
 	i = 0;
-	while ((*arg)->content[i])
+	while ((*arg)->quoted == 0 && (*arg)->content[i])
 	{
 		if (ft_tbd(arg, &i, '<') || ft_tbd(arg, &i, '>'))
 			break ;
@@ -66,7 +66,7 @@ void	define_pipe(t_list **arg)
 	int	i;
 
 	i = 0;
-	while ((*arg)->content[i])
+	while ((*arg)->quoted == 0 && (*arg)->content[i])
 	{
 		if (i == 0 && (*arg)->content[i] == '|')
 		{

@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dellst.c                                        :+:      :+:    :+:   */
+/*   ft_cmddelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/19 15:16:51 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/06/23 15:16:17 by ahel-bah         ###   ########.fr       */
+/*   Created: 2022/06/26 19:03:34 by ahel-bah          #+#    #+#             */
+/*   Updated: 2022/06/26 19:03:59 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_dellst(t_list **lst, t_list *del)
+void	ft_cmddelone(t_cmd *cmd, void (*del)(void*))
 {
-	(*lst)->next = (*lst)->next->next;
-	ft_lstdelone((del), free);
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_dubstrlen(cmd->content);
+	while (i < len)
+	{
+		del(cmd->content[i]);
+		i++;
+	}
+	del(cmd->content);
+	free(cmd);
 }
