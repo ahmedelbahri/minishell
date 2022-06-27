@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 17:06:52 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/06/26 19:12:09 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/06/27 13:15:58 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ void	ft_cmddelone(t_cmd *cmd, void (*del)(void*));
 void	printdub(char **content);///////////////////////////////delete
 void	ft_print_cmd(t_cmd *cmd);///////////////////////////////delete
 void	ft_print(t_list *arg);//////////////////////////////////delete
+////////////////////////////////////////////////////////////////matnsash libft.a
 
 #endif
