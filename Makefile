@@ -6,7 +6,7 @@
 #    By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/19 15:18:51 by ahel-bah          #+#    #+#              #
-#    Updated: 2022/06/27 14:56:20 by ahel-bah         ###   ########.fr        #
+#    Updated: 2022/06/27 15:01:53 by ahel-bah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ $(NAME): $(OBJ)
 	$(CC)  $(OBJ) -L$(shell brew --prefix readline)/lib -lreadline -o $(NAME) $(LIBFT)
 
 $(LIBFT):
-	$(MAKE) -C libft
+	make bonus -C libft
 
 update:
 	$(shell cd ~/goinfre && brew update)
