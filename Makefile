@@ -6,7 +6,7 @@
 #    By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/19 15:18:51 by ahel-bah          #+#    #+#              #
-#    Updated: 2022/06/27 13:23:44 by ahel-bah         ###   ########.fr        #
+#    Updated: 2022/06/27 14:56:20 by ahel-bah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ $(NAME): $(OBJ)
 	$(CC)  $(OBJ) -L$(shell brew --prefix readline)/lib -lreadline -o $(NAME) $(LIBFT)
 
 $(LIBFT):
-	@$(shell cd libft && make bonus && make clean)
+	$(MAKE) -C libft
 
 update:
 	$(shell cd ~/goinfre && brew update)
@@ -50,10 +50,10 @@ install:
 	$(shell cd ~/goinfre && brew install readline)
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) $(shell cd libft && make clean)
 
 fclean: clean
-	$(RM) $(NAME) $(LIBFT)
+	$(RM) $(NAME) $(shell cd libft && make fclean)
 
 re: fclean all
 

@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:42:55 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/06/27 13:23:11 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/06/27 14:31:24 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	printdub(char **content)
 	i = 0;
 	while (content != NULL && content[i] != NULL)
 	{
-		printf("%i content[i] = |%s|\n", i, content[i]);
+		printf("content[%d] = |%s|\n", i, content[i]);
 		i++;
 	}
-	printf("%i content[i] = |%s|\n", i, content[i]);
+	printf("content[%d] = |%s|\n", i, content[i]);
 }
 
 void	ft_print(t_list *arg)
