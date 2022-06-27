@@ -6,7 +6,7 @@
 #    By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/19 15:18:51 by ahel-bah          #+#    #+#              #
-#    Updated: 2022/06/27 15:01:53 by ahel-bah         ###   ########.fr        #
+#    Updated: 2022/06/27 15:06:39 by ahel-bah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,10 +50,12 @@ install:
 	$(shell cd ~/goinfre && brew install readline)
 
 clean:
-	$(RM) $(OBJ) $(shell cd libft && make clean)
+	$(RM) $(OBJ)
+	make clean -C libft
 
 fclean: clean
-	$(RM) $(NAME) $(shell cd libft && make fclean)
+	$(RM) $(NAME)
+	make fclean -C libft
 
 re: fclean all
 
