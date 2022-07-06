@@ -6,76 +6,101 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 18:44:27 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/06/23 22:09:49 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/07/06 23:20:55 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// void	more_dollars(char *arg, int *i)
-// {
-// 	while (arg[*i] && arg[*i + 1] && arg[*i] == '$' && arg[*i + 1] == '$')
-// 		(*i)++;
-// }
+static void	ft_replace(t_list **arg, t_env *env)
+{
+	char	*tmp;
 
-// int	end_dollars(char *arg, int i)
-// {
-// 	i++;
-// 	while (arg[i] && arg[i] != '$')
-// 		i++;
-// 	return (i);
-// }
+	while (env)
+	{
+		if (ft_strcmp(&(*arg)->content[1], env->name) == 0)
+			break ;
+		env = env->next;
+	}
+	if (env == NULL)
+		(*arg)->quoted = 4;
+	else
+	{
+		tmp = (*arg)->content;
+		(*arg)->content = ft_strdup(env->content);
+		free(tmp);
+	}
+}
 
-// void	seperate_quoted(t_list **arg, int i)
-// {
-// 	t_list		*new1;
-// 	t_list		*new2;
-// 	char		*buff;
+static void	ft_expend(t_list **arg, t_env *env, int d)
+{
+	int		len;
+	char	*tmp;
 
-// 	buff = (*arg)->content;
-// 	more_dollars(buff, &i);
-// 	new1 = ft_lstnew(ft_substr(buff, 0, i), 2);
-// 	ft_lstinsert(arg, &new1);
-// 	(*arg) = (*arg)->next;
-// 	new2 = ft_lstnew(ft_substr(buff, i, end_dollars(buff, i)), 2);
-// 	ft_lstinsert(arg, &new2);
-// 	ft_dellst(&((*arg)->previous));
-// 	exit(0);
-// 	// ftprint(*arg);
-// 	// printf("%s", (*arg)->previous->content);
-// }
+	len = 1;
+	if (d > 0)
+	{
+		ft_lstinsert(arg, ft_lstnew(ft_strdup(&(*arg)->content[d]), 0));
+		tmp = (*arg)->content;
+		(*arg)->content = ft_substr((*arg)->content, 0, d);
+		free(tmp);
+		return ;
+	}
+	while ((*arg)->content[len] != '\0' && (ft_isalpha((*arg)->content[len])
+			|| (*arg)->content[len] == '_' || ft_isalnum((*arg)->content[len])))
+		len++;
+	if ((*arg)->content[len] != '\0')
+	{
+		ft_lstinsert(arg, ft_lstnew(
+				ft_strdup(&((*arg)->content[len])), (*arg)->quoted));
+		tmp = (*arg)->content;
+		(*arg)->content = ft_substr((*arg)->content, 0, len);
+		free(tmp);
+	}
+	ft_replace(arg, env);
+}
 
-// int	cout_dollars(char *arg)
-// {
-// 	int	i;
+static void	dollar(t_list **arg, t_env *env)
+{
+	int		i;
+	char	*tmp;
+	int		sequenced_dollars;
 
-// 	i = 0;
-// 	while (arg[i] && arg[i] == '$')
-// 		i++;
-// 	return (i);
-// }
+	i = 0;
+	sequenced_dollars = 0;
+	while ((*arg)->content[i] && (*arg)->content[i] != '$')
+		i++;
+	if (i > 0)
+	{
+		ft_lstinsert(arg, ft_lstnew(ft_strdup(&(*arg)->content[i]),
+				(*arg)->quoted));
+		tmp = (*arg)->content;
+		(*arg)->content = ft_substr((*arg)->content, 0, i);
+		free(tmp);
+	}
+	while ((*arg)->content[i++] == '$' && (*arg)->content[i] == '$')
+		sequenced_dollars++;
+	if ((*arg)->content[0] == '$')
+		ft_expend(arg, env, sequenced_dollars);
+}
 
-// void	dollar(t_list **arg)
-// {
-// 	int	i;
+static int	count_dollars(char *arg)
+{
+	int	i;
+	int	dollars;
 
-// 	i = 0;
-// 	while ((*arg)->content[i] && (*arg)->content[i] != '$')
-// 		i++;
-// 	if (cout_dollars(&(*arg)->content[i]) > 1 && (*arg)->quoted == 2
-// 		&& (*arg)->content[i] && (*arg)->content[i] == '$')
-// 	{
-// 		seperate_quoted(arg, i);
-// 		return ;
-// 	}
-// 	if ((*arg)->quoted == 0 && (*arg)->content[i] && (*arg)->content[i] == '$')
-// 	{
-// 		// seperate(arg, i);
-// 		return ;
-// 	}
-// }
+	i = 0;
+	dollars = 0;
+	while (arg[i])
+	{
+		if (arg[i] == '$')
+			dollars++;
+		i++;
+	}
+	return (dollars);
+}
 
-void	clean_line(t_list **arg)
+void	clean_line(t_list **arg, t_env *env)
 {
 	t_list	*tmp;
 
@@ -90,11 +115,13 @@ void	clean_line(t_list **arg)
 	{
 		if (((*arg)->next && ft_strcmp((*arg)->next->content, " ") == 0
 				&& (*arg)->next->quoted == 0 && (*arg)->next->next
-				&& ft_is_opperator((*arg)->next->next))
-			|| ((*arg)->quoted == 0 && ft_is_opperator(*arg)
+				&& ft_is_opp((*arg)->next->next))
+			|| ((*arg)->quoted == 0 && ft_is_opp(*arg)
 				&& (*arg)->next && (*arg)->next->quoted == 0
 				&& ft_strcmp((*arg)->next->content, " ") == 0))
 			ft_dellst(arg, (*arg)->next);
+		if ((*arg) && (*arg)->quoted != 1 && count_dollars((*arg)->content))
+			dollar(arg, env);
 		(*arg) = (*arg)->next;
 	}
 }

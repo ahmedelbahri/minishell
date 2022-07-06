@@ -1,24 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_operator.c                                   :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 12:37:45 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/06/23 16:58:33 by ahel-bah         ###   ########.fr       */
+/*   Created: 2022/07/03 22:33:27 by ahel-bah          #+#    #+#             */
+/*   Updated: 2022/07/05 18:40:04 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_is_opperator(t_list *arg)
+static int	ft_start(char *s)
 {
-	if (ft_strcmp(arg->content, "<<") == 0
-		|| ft_strcmp(arg->content, ">>") == 0
-		|| ft_strcmp(arg->content, "|") == 0
-		|| ft_strcmp(arg->content, "<") == 0
-		|| ft_strcmp(arg->content, ">") == 0)
-		return (1);
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i++] == '=')
+			return (i);
+	}
 	return (0);
+}
+
+t_env	*ft_env(char **nv)
+{
+	int		i;
+	int		start;
+	t_env	*env;
+
+	i = 0;
+	env = NULL;
+	while (nv[i])
+	{
+		start = ft_start(nv[i]);
+		ft_envadd_back(&env, ft_envnew(ft_substr(nv[i], start,
+					ft_strlen(nv[i])), ft_substr(nv[i], 0, start - 1)));
+		i++;
+	}
+	return (env);
 }
