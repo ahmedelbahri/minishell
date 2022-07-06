@@ -6,20 +6,11 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 13:18:53 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/06/24 11:38:30 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/07/03 16:16:21 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-t_list	*ft_lstbeforelast(t_list *lst)
-{
-	if (lst == 0)
-		return (0);
-	while (lst->next && lst->next->next)
-		lst = lst->next;
-	return (lst);
-}
 
 int	only_space(t_list *arg)
 {
@@ -29,22 +20,29 @@ int	only_space(t_list *arg)
 	return (0);
 }
 
-// static int	donotdelete(t_list *arg)
-// {
-// 	int	i;
+static t_list	*ft_lstbeforelast(t_list *lst)
+{
+	if (lst == 0)
+		return (0);
+	while (lst->next && lst->next->next)
+		lst = lst->next;
+	return (lst);
+}
 
-// 	while (arg)
-// 	{
-// 		if ((arg->content, "echo"))
-// 			;
-// 		arg = arg->next;
-// 	}
-// }
+static void	in_between(t_list **arg)
+{
+	t_list	*tmp;
 
-// static void	in_between(t_list **arg)
-// {
-// 	donotdelete();
-// }
+	tmp = (*arg);
+	while (tmp)
+	{
+		if (tmp->next && ft_cmpecho(tmp->content)
+			&& ft_strcmp(tmp->content, "|"))
+			del_in_between(&tmp);
+		else
+			is_echo(&tmp);
+	}
+}
 
 void	del_spaces(t_list **arg)
 {
@@ -57,14 +55,11 @@ void	del_spaces(t_list **arg)
 		(*arg) = (*arg)->next;
 		ft_lstdelone(tmp, free);
 	}
-	if ((*arg)->next && (*arg)->next->quoted == 0
-		&& ft_strcmp((*arg)->next->content, " ") == 0)
-		ft_dellst(arg, (*arg)->next);
 	if (ft_lstbeforelast(*arg)->next != NULL
 		&& ft_strcmp(ft_lstbeforelast(*arg)->next->content, " ") == 0)
 	{
 		tmp = ft_lstbeforelast(*arg);
 		ft_dellst(&tmp, ft_lstlast(*arg));
 	}
-	// in_between(arg);
+	in_between(arg);
 }

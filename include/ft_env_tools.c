@@ -1,26 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cmdnew.c                                        :+:      :+:    :+:   */
+/*   ft_env_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/26 18:56:54 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/06/26 18:57:11 by ahel-bah         ###   ########.fr       */
+/*   Created: 2022/07/04 14:47:04 by ahel-bah          #+#    #+#             */
+/*   Updated: 2022/07/05 18:14:24 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_cmd	*ft_cmdnew(char **content, int quoted)
+void	ft_free_env(t_env *env)
 {
-	t_cmd	*cmd;
+	t_env	*tmp;
 
-	cmd = malloc(sizeof(t_cmd));
-	if (cmd == 0)
-		return (0);
-	cmd->content = content;
-	cmd->quoted = quoted;
-	cmd->next = NULL;
-	return (cmd);
+	tmp = env;
+	while (tmp)
+	{
+		free(tmp->content);
+		free(tmp->name);
+		tmp = tmp->next;
+	}
+	free(env);
+}
+
+void	print_env(t_env *env)
+{
+	while (env != NULL)
+	{
+		printf("%s", env->name);
+		printf("=");
+		printf("%s\n", env->content);
+		env = env->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:42:55 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/06/27 14:31:24 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/07/06 23:41:25 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,24 @@ void	printdub(char **content)
 	printf("content[%d] = |%s|\n", i, content[i]);
 }
 
+void	printdub_cmd(char **content, int *quoted)
+{
+	int	i;
+
+	i = 0;
+	while (content != NULL && content[i] != NULL)
+	{
+		printf("content[%d] = |%s| quoted: |%d|\n", i, content[i], quoted[i]);
+		i++;
+	}
+	printf("content[%d] = |%s|\n", i, content[i]);
+}
+
 void	ft_print(t_list *arg)
 {
 	while (arg != NULL)
 	{
-		printf("|%s|\n", arg->content);
+		printf("|%s|%d|\n", arg->content, arg->quoted);
 		arg = arg->next;
 	}
 }
@@ -42,7 +55,7 @@ void	ft_print_cmd(t_cmd *cmd)
 	i = 0;
 	while (cmd != NULL)
 	{
-		printdub(cmd->content);
+		printdub_cmd(cmd->content, cmd->quoted);
 		if (cmd->next)
 			printf("__\n");
 		cmd = cmd->next;
@@ -50,7 +63,17 @@ void	ft_print_cmd(t_cmd *cmd)
 }
 //////////////////////////////////////////////
 
-void	check_line(char *buff)
+// void	check_in_out(arg)
+// {
+// 	while (arg)
+// 	{
+// 		if (arg)
+// 			;
+// 		arg = arg->next;
+// 	}
+// }
+
+static void	check_line(char *buff, t_env *env)
 {
 	t_list	*arg;
 	t_cmd	*cmd;
@@ -59,10 +82,11 @@ void	check_line(char *buff)
 	if (buff[0])
 	{
 		add_history(buff);
-		if (lex(buff, &arg) || only_space(arg))
+		if (lex(buff, &arg, env) || only_space(arg))
 			ft_lstclear(&arg, free);
 		else
 		{
+			// check_in_out(arg);
 			cmd = split_pipe(arg);
 			ft_print(arg);
 			ft_lstclear(&arg, free);
@@ -74,7 +98,7 @@ void	check_line(char *buff)
 	}
 }
 
-void	handler(int sig)
+static void	handler(int sig)
 {
 	if (sig == SIGINT)
 		write(1, "\n", 1);
@@ -83,26 +107,29 @@ void	handler(int sig)
 	rl_redisplay();
 }
 
-int	main(int ac, char *av[], char *env[])
+int	main(int ac, char **av, char **nv)
 {
 	char	*buff;
+	t_env	*env;
 
 	signal(SIGINT, handler);
 	signal(SIGQUIT, handler);
 	ac = 0;
 	av = NULL;
-	env = NULL;
+	env = ft_env(nv);
+	print_env(env);
 	while (1)
 	{
-		buff = readline("\033[0;34m\e[1mminishell\e[m\
-@\033[0;32m\e[1mahel-bah\e[m:~$ ");
+		buff = readline("\033[0;36m\e[1mminishell\e[m:~$ ");
 		if ((!buff) || ft_strcmp(buff, "exit") == 0)
 		{
+			ft_free_env(env);
 			printf("exit\n");
 			exit(0);
 		}
-		check_line(buff);
+		check_line(buff, env);
 		free(buff);
+		system("leaks minishell");
 	}
 	return (0);
 }

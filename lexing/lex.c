@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 19:44:22 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/06/24 19:16:48 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/07/06 22:50:13 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	is_space(char *buff, t_lex *lex, t_list **arg)
 		ft_lstnew(ft_substr(buff, lex->argstart, lex->arglen), 0));
 }
 
-int	lex(char *buff, t_list **arg)
+int	lex(char *buff, t_list **arg, t_env *env)
 {
 	t_lex	lex;
 	t_list	*tmp;
@@ -40,9 +40,9 @@ int	lex(char *buff, t_list **arg)
 				return (1);
 		collect_args(buff, &lex, arg);
 	}
+	tmp = *arg;
+	clean_line(&tmp, env);
 	concatenate(*arg);
 	del_spaces(arg);
-	tmp = *arg;
-	clean_line(&tmp);
-	return (0);
+	return (ft_errors(*arg));
 }
