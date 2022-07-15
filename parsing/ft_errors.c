@@ -28,7 +28,7 @@ static int	ft_dub_opp(t_list *arg)
 {
 	while (arg)
 	{
-		if ((ft_is_opp(arg) == 0 && arg->next && ft_is_opp(arg->next) == 0)
+		if ((ft_is_opp(arg) && arg->next && ft_is_opp(arg->next))
 			|| (ft_lstsize(arg) == 1 && ft_is_opp(arg)))
 		{
 			perror("error");
