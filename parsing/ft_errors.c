@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:29:38 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/06 23:22:42 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/07/18 22:50:05 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_dub_opp(t_list *arg)
 {
 	while (arg)
 	{
-		if ((ft_is_opp(arg) == 0 && arg->next && ft_is_opp(arg->next) == 0)
+		if ((ft_is_opp(arg) && arg->next && ft_is_opp(arg->next))
 			|| (ft_lstsize(arg) == 1 && ft_is_opp(arg)))
 		{
 			perror("error");
