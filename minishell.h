@@ -6,12 +6,17 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 17:06:52 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/06 23:19:20 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/07/22 11:22:47 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define INFILE 10
+# define OUTFILE 11
+# define HERDOC 12
+# define APPAND 13
 
 # include <stdio.h>
 # include <unistd.h>
@@ -27,14 +32,6 @@ typedef struct s_lex
 	int		arglen;
 	int		argstart;
 }				t_lex;
-
-typedef struct s_red
-{
-	int		fd_out;
-	int		fd_in;
-	char	*file;
-	int		fd;
-}				t_red;
 
 typedef struct s_cmd
 {
@@ -92,6 +89,7 @@ void	collect_args(char *buff, t_lex *lex, t_list **arg);
 //./lexing/concatenate.c
 void	concatenate(t_list *arg);
 //./lexing/define_opp.c
+void	free_dub(char **content);
 void	define_pipe(t_list **arg);
 void	redirections(t_list **arg);
 //./lexing/double_quoting.c
@@ -107,11 +105,10 @@ void	del_spaces(t_list **arg);
 //./parsing/ft_errors.c
 //./parsing/splite_pipe.c
 t_cmd	*split_pipe(t_list *arg);
-int		ft_errors(t_list *arg);
+int		ft_errors(t_list **arg);
 //./minishell.c
 void	printdub(char **content);///////////////////////////////delete
 void	ft_print_cmd(t_cmd *cmd);///////////////////////////////delete
 void	ft_print(t_list *arg);//////////////////////////////////delete
-////////////////////////////////////////////////////////////////matnsash libft.a
 
 #endif

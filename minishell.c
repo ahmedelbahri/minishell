@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:42:55 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/06 23:41:25 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/07/21 20:42:53 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,6 @@ void	ft_print_cmd(t_cmd *cmd)
 }
 //////////////////////////////////////////////
 
-// void	check_in_out(arg)
-// {
-// 	while (arg)
-// 	{
-// 		if (arg)
-// 			;
-// 		arg = arg->next;
-// 	}
-// }
-
 static void	check_line(char *buff, t_env *env)
 {
 	t_list	*arg;
@@ -86,7 +76,7 @@ static void	check_line(char *buff, t_env *env)
 			ft_lstclear(&arg, free);
 		else
 		{
-			// check_in_out(arg);
+			// ft_red(arg);
 			cmd = split_pipe(arg);
 			ft_print(arg);
 			ft_lstclear(&arg, free);
@@ -117,7 +107,7 @@ int	main(int ac, char **av, char **nv)
 	ac = 0;
 	av = NULL;
 	env = ft_env(nv);
-	print_env(env);
+	print_env(env);//////////////////////////////delete
 	while (1)
 	{
 		buff = readline("\033[0;36m\e[1mminishell\e[m:~$ ");

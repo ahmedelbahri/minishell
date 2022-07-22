@@ -6,13 +6,13 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 22:12:45 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/05 17:04:17 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/07/21 20:22:28 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	free_dub(char **content)
+void	free_dub(char **content)
 {
 	int	i;
 	int	len;
