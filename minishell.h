@@ -6,13 +6,16 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 17:06:52 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/22 11:22:47 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/07/23 17:56:12 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# define NONE 0
+# define STD_IN 0
+# define STD_OUT 1
 # define INFILE 10
 # define OUTFILE 11
 # define HERDOC 12
@@ -103,6 +106,8 @@ int		only_space(t_list *arg);
 void	del_spaces(t_list **arg);
 //....................../parsing/.......................
 //./parsing/ft_errors.c
+//./parsing/ft_red.c
+// void	ft_red(t_list *arg);
 //./parsing/splite_pipe.c
 t_cmd	*split_pipe(t_list *arg);
 int		ft_errors(t_list **arg);

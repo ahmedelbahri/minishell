@@ -6,7 +6,7 @@
 #    By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/19 15:18:51 by ahel-bah          #+#    #+#              #
-#    Updated: 2022/07/06 23:20:26 by ahel-bah         ###   ########.fr        #
+#    Updated: 2022/07/23 17:56:40 by ahel-bah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC = minishell.c \
 	  lexing/lex.c lexing/concatenate.c lexing/clean_line.c\
 	  lexing/define_opp.c lexing/spaces.c\
 \
-	  parsing/split_pipe.c parsing/ft_errors.c\
+	  parsing/split_pipe.c parsing/ft_red.c parsing/ft_errors.c\
 \
 	  include/ft_strcmp.c include/ft_lstinsert.c include/ft_dellst.c\
 	  include/ft_is_opp.c include/ft_cmd_include.c\

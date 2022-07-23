@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:42:55 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/21 20:42:53 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/07/23 17:54:36 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,12 @@ static void	check_line(char *buff, t_env *env)
 		{
 			// ft_red(arg);
 			cmd = split_pipe(arg);
-			ft_print(arg);
+			//////////////////////////////////waelhamd
+			ft_print(arg);////////////////////delete
+			printf("-----------------\n");////delete
+			ft_print_cmd(cmd);////////////////delete
+			printf("-----------------\n");////delete
 			ft_lstclear(&arg, free);
-			printf("-----------------\n");
-			ft_print_cmd(cmd);
-			printf("-----------------\n");
 			ft_cmdclear(&cmd, free);
 		}
 	}
@@ -107,7 +108,7 @@ int	main(int ac, char **av, char **nv)
 	ac = 0;
 	av = NULL;
 	env = ft_env(nv);
-	print_env(env);//////////////////////////////delete
+	print_env(env);///////////////////////////delete
 	while (1)
 	{
 		buff = readline("\033[0;36m\e[1mminishell\e[m:~$ ");
@@ -119,7 +120,7 @@ int	main(int ac, char **av, char **nv)
 		}
 		check_line(buff, env);
 		free(buff);
-		system("leaks minishell");
+		system("leaks minishell");////////////delete
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:08:48 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/21 20:25:10 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/07/23 17:58:36 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ typedef struct s_red
 {
 	int		fd_out;
 	int		fd_in;
+	int		red;
 	char	*file;
-	int		fd;
 }				t_red;
 
 typedef struct s_list
 {
 	char			*content;
 	int				quoted;
-	t_red			*red;
+	t_red			red;
 	struct s_list	*next;
 }					t_list;
 
