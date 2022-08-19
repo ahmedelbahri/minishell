@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 13:09:53 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/19 20:49:31 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/19 21:09:38 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	concatenate(t_list **arg)
 	while (tmp)
 	{
 		if (tmp->next && ((not_space(tmp) && not_space(tmp->next))
-				|| (not_opp(tmp) && not_opp(tmp->next)))
+				&& (not_opp(tmp) == 0 && not_opp(tmp->next) == 0))
 			&& (tmp->quoted != 4 && tmp->next->quoted != 4))
 		{
 			to_free = tmp->content;
