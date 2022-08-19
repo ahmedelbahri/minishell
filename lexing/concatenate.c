@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 13:09:53 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/19 21:09:38 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/19 21:22:34 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ void	concatenate(t_list **arg)
 
 	del_invalid_dollar(arg);
 	tmp = *arg;
-	ft_print(*arg);
-	printf("----\n");
 	while (tmp)
 	{
 		if (tmp->next && ((not_space(tmp) && not_space(tmp->next))
