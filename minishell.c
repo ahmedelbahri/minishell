@@ -6,13 +6,13 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:42:55 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/23 17:54:36 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/19 19:12:24 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//////////////////delete//////////////////////
+///////////////////debug//////////////////////
 void	printdub(char **content)
 {
 	int	i;
@@ -26,7 +26,7 @@ void	printdub(char **content)
 	printf("content[%d] = |%s|\n", i, content[i]);
 }
 
-void	printdub_cmd(char **content, int *quoted)
+static void	printdub_cmd(char **content, int *quoted, t_red red)
 {
 	int	i;
 
@@ -37,6 +37,30 @@ void	printdub_cmd(char **content, int *quoted)
 		i++;
 	}
 	printf("content[%d] = |%s|\n", i, content[i]);
+	i = 0;
+	printf(">>>>redirections<<<<\n");
+	while (red.delimiter && red.delimiter[i])
+	{
+		printf("red.delimiter: |%s|\n", red.delimiter[i]);
+		i++;
+	}
+	if (red.delimiter)
+		printf("red.delimiter[%d] = |%s|\n", i, red.delimiter[i]);
+	printf("<<<<<<<<<<<<<<<<<<<<\n");
+	if (red.in)
+		printf("red.infile = |%s|\n", red.in);
+	printf(">>>>>>>>>>>>>>>>>>>>\n");
+	i = 0;
+	while (red.out && red.out[i])
+	{
+		printf("red.outfile[%d] = |%s|\n", i, red.out[i]);
+		i++;
+	}
+	if (red.out)
+		printf("red.outfile[%d] = |%s|\n", i, red.out[i]);
+	printf(">>>>>>>>>><<<<<<<<<<\n");
+	printf("red.out_type = |%d|\n", red.out_type);
+	printf("red.in_type = |%d|\n", red.in_type);
 }
 
 void	ft_print(t_list *arg)
@@ -55,7 +79,7 @@ void	ft_print_cmd(t_cmd *cmd)
 	i = 0;
 	while (cmd != NULL)
 	{
-		printdub_cmd(cmd->content, cmd->quoted);
+		printdub_cmd(cmd->content, cmd->quoted, cmd->red);
 		if (cmd->next)
 			printf("__\n");
 		cmd = cmd->next;
@@ -76,9 +100,9 @@ static void	check_line(char *buff, t_env *env)
 			ft_lstclear(&arg, free);
 		else
 		{
-			// ft_red(arg);
 			cmd = split_pipe(arg);
-			//////////////////////////////////waelhamd
+			redirections_parser(cmd);
+			// ft_execute(cmd, env);
 			ft_print(arg);////////////////////delete
 			printf("-----------------\n");////delete
 			ft_print_cmd(cmd);////////////////delete
@@ -108,11 +132,10 @@ int	main(int ac, char **av, char **nv)
 	ac = 0;
 	av = NULL;
 	env = ft_env(nv);
-	print_env(env);///////////////////////////delete
 	while (1)
 	{
 		buff = readline("\033[0;36m\e[1mminishell\e[m:~$ ");
-		if ((!buff) || ft_strcmp(buff, "exit") == 0)
+		if (!buff)
 		{
 			ft_free_env(env);
 			printf("exit\n");

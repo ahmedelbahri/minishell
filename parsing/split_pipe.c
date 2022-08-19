@@ -6,55 +6,11 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 22:12:45 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/21 20:22:28 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/07/24 16:04:08 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	free_dub(char **content)
-{
-	int	i;
-	int	len;
-
-	i = 0;
-	len = ft_dubstrlen(content);
-	while (i < len)
-	{
-		free(content[i]);
-		i++;
-	}
-	free(content);
-}
-
-static char	**reallocate_cmd(char **content, char *arg_content)
-{
-	char	**new_content;
-	int		content_len;
-	int		i;
-
-	if (content == NULL)
-	{
-		new_content = malloc(sizeof(char *) * 2);
-		new_content[0] = ft_strdup(arg_content);
-		new_content[1] = NULL;
-	}
-	else
-	{
-		content_len = ft_dubstrlen(content);
-		new_content = malloc(sizeof(char *) * (content_len + 2));
-		i = 0;
-		while (i < content_len)
-		{
-			new_content[i] = ft_strdup(content[i]);
-			i++;
-		}
-		new_content[i++] = ft_strdup(arg_content);
-		new_content[i] = NULL;
-		free_dub(content);
-	}
-	return (new_content);
-}
 
 static int	*quots(int *cmdquoted, int quoted, int len)
 {
@@ -92,7 +48,7 @@ static void	ft_loop(t_list **arg, t_cmd **cmd)
 	{
 		if (ft_strcmp((*arg)->content, "|"))
 		{
-			content = reallocate_cmd(content, (*arg)->content);
+			content = reallocate_dub(content, (*arg)->content);
 			quoted = quots(quoted, (*arg)->quoted, ft_dubstrlen(content));
 		}
 		else

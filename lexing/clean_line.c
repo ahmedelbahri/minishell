@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 18:44:27 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/06 23:20:55 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/02 14:51:59 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	ft_replace(t_list **arg, t_env *env)
 			break ;
 		env = env->next;
 	}
+	if ((*arg)->content[0] == '$' && (*arg)->content[1] == '\0')
+		return ;
 	if (env == NULL)
 		(*arg)->quoted = 4;
 	else
@@ -107,7 +109,7 @@ void	clean_line(t_list **arg, t_env *env)
 	tmp = (*arg);
 	while (tmp)
 	{
-		redirections(&tmp);
+		ft_is_redirections(&tmp);
 		define_pipe(&tmp);
 		tmp = tmp->next;
 	}

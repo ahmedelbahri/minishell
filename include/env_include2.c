@@ -1,44 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   env_include2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/03 22:33:27 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/05 18:40:04 by ahel-bah         ###   ########.fr       */
+/*   Created: 2022/07/04 14:47:04 by ahel-bah          #+#    #+#             */
+/*   Updated: 2022/07/24 16:17:23 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	ft_start(char *s)
+void	ft_free_env(t_env *env)
 {
-	int	i;
+	t_env	*tmp;
 
-	i = 0;
-	while (s[i])
+	while (env)
 	{
-		if (s[i++] == '=')
-			return (i);
+		tmp = env;
+		free(env->content);
+		free(env->name);
+		env = env->next;
+		free(tmp);
 	}
-	return (0);
 }
 
-t_env	*ft_env(char **nv)
+void	print_env(t_env *env)
 {
-	int		i;
-	int		start;
-	t_env	*env;
-
-	i = 0;
-	env = NULL;
-	while (nv[i])
+	while (env != NULL)
 	{
-		start = ft_start(nv[i]);
-		ft_envadd_back(&env, ft_envnew(ft_substr(nv[i], start,
-					ft_strlen(nv[i])), ft_substr(nv[i], 0, start - 1)));
-		i++;
+		printf("%s", env->name);
+		printf("=");
+		printf("%s\n", env->content);
+		env = env->next;
 	}
-	return (env);
 }

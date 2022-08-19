@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cmd_include.c                                   :+:      :+:    :+:   */
+/*   cmd_include.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 19:02:03 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/05 15:30:37 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/07/28 21:15:32 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,11 @@ t_cmd	*ft_cmdlast(t_cmd *cmd)
 
 void	ft_cmddelone(t_cmd *cmd, void (*del)(void*))
 {
-	int	i;
-	int	len;
-
-	i = 0;
-	len = ft_dubstrlen(cmd->content);
-	while (i < len)
-	{
-		del(cmd->content[i]);
-		i++;
-	}
-	del(cmd->content);
+	free_dub(cmd->content);
+	free_dub(cmd->red.out);
+	free_dub(cmd->red.delimiter);
+	if (cmd->red.in != NULL)
+		del(cmd->red.in);
 	del(cmd->quoted);
 	free(cmd);
 }

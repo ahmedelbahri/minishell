@@ -6,7 +6,7 @@
 #    By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/19 15:18:51 by ahel-bah          #+#    #+#              #
-#    Updated: 2022/07/23 17:56:40 by ahel-bah         ###   ########.fr        #
+#    Updated: 2022/08/02 14:55:11 by ahel-bah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,18 +17,17 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror 
 SRC = minishell.c \
 \
-	  lexing/single_quoting.c lexing/double_quoting.c lexing/collect_args.c\
-	  lexing/lex.c lexing/concatenate.c lexing/clean_line.c\
-	  lexing/define_opp.c lexing/spaces.c\
+	  execution/built-ins/ft_env.c execution/ft_execute.c\
 \
-	  parsing/split_pipe.c parsing/ft_red.c parsing/ft_errors.c\
+	  include/cmd_include.c include/dubstr_include.c include/env_include1.c\
+	  include/env_include2.c include/ft_dellst.c include/ft_is_opp.c\
+	  include/ft_lstinsert.c include/ft_strcmp.c include/in_between_include.c\
 \
-	  include/ft_strcmp.c include/ft_lstinsert.c include/ft_dellst.c\
-	  include/ft_is_opp.c include/ft_cmd_include.c\
-	  include/ft_dubstrlen.c include/in_between_include.c\
-	  include/ft_env_include.c include/ft_env_tools.c\
+	  lexing/clean_line.c lexing/collect_args.c lexing/concatenate.c\
+	  lexing/define_opp.c lexing/double_quoting.c lexing/single_quoting.c\
+	  lexing/lex.c lexing/spaces.c\
 \
-	  built-ins/ft_env.c
+	  parsing/ft_errors.c parsing/redirections_parser.c parsing/split_pipe.c
 
 OBJ = $(SRC:.c=.o)
 	
@@ -59,7 +58,3 @@ fclean: clean
 	make fclean -C libft
 
 re: fclean all
-
-# @echo "\033[1;33m"Hint:"\033[0m" in case of error you may run this command first "\033[1;36m"make lib"\033[0m"
-# find . -type file -name "*.c"
-# -fsanitize=address -static-libsan

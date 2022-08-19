@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 19:44:22 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/19 18:18:02 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/01 17:37:33 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	lex(char *buff, t_list **arg, t_env *env)
 	}
 	tmp = *arg;
 	clean_line(&tmp, env);
-	concatenate(*arg);
+	concatenate(arg);
 	del_spaces(arg);
-	return (ft_errors(arg));
+	return (ft_errors(*arg));
 }

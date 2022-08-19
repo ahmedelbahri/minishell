@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 13:09:53 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/06 23:20:43 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/19 20:49:31 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,62 @@
 
 static int	not_space(t_list *arg)
 {
-	if ((ft_strcmp(arg->content, " ") && ft_is_opp(arg) == 0)
-		|| (ft_strcmp(arg->content, " ") == 0 && arg->quoted))
+	if ((ft_strcmp(arg->content, " ")) || (ft_strcmp(arg->content, " ") == 0
+		&& arg->quoted))
 		return (1);
 	return (0);
 }
 
 static int	not_opp(t_list *arg)
 {
-	if (ft_is_opp(arg) && arg->quoted)
+	if (ft_is_opp(arg) && arg->quoted == 0)
 		return (1);
 	return (0);
 }
 
-void	concatenate(t_list *arg)
+static void	del_invalid_dollar(t_list **arg)
 {
-	char	*tmp;
+	t_list	*tmp;
 
-	while (arg)
+	if ((*arg)->quoted == 4 && (*arg)->next)
 	{
-		if (arg->next && ((not_space(arg) && not_space(arg->next))
-				|| not_opp(arg) || not_opp(arg->next))
-			&& (arg->quoted != 4 && arg->next->quoted != 4))
+		tmp = (*arg);
+		(*arg) = (*arg)->next;
+		ft_lstdelone(tmp, free);
+	}
+	tmp = (*arg);
+	while (tmp)
+	{
+		if (tmp->next && tmp->next->quoted == 4)
+			ft_dellst(&tmp, tmp->next);
+		if (ft_lstsize(tmp) == 1 && tmp->quoted == 4)
+			return ;
+		tmp = tmp->next;
+	}
+}
+
+void	concatenate(t_list **arg)
+{
+	char	*to_free;
+	t_list	*tmp;
+
+	del_invalid_dollar(arg);
+	tmp = *arg;
+	ft_print(*arg);
+	printf("----\n");
+	while (tmp)
+	{
+		if (tmp->next && ((not_space(tmp) && not_space(tmp->next))
+				|| (not_opp(tmp) && not_opp(tmp->next)))
+			&& (tmp->quoted != 4 && tmp->next->quoted != 4))
 		{
-			tmp = arg->content;
-			arg->content = ft_strjoin(arg->content, arg->next->content);
-			arg->quoted = 3;
-			free(tmp);
-			ft_dellst(&arg, arg->next);
+			to_free = tmp->content;
+			tmp->content = ft_strjoin(tmp->content, tmp->next->content);
+			tmp->quoted = 3;
+			free(to_free);
+			ft_dellst(&tmp, tmp->next);
 		}
 		else
-			arg = arg->next;
+			tmp = tmp->next;
 	}
 }

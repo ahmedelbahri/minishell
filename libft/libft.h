@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 15:08:48 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/23 17:58:36 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/07/24 15:03:04 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,10 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-typedef struct s_red
-{
-	int		fd_out;
-	int		fd_in;
-	int		red;
-	char	*file;
-}				t_red;
-
 typedef struct s_list
 {
 	char			*content;
 	int				quoted;
-	t_red			red;
 	struct s_list	*next;
 }					t_list;
 

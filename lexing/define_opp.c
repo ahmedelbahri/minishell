@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 16:46:18 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/06/26 19:35:01 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/02 14:51:32 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	ft_tbd(t_list **arg, int *i, char c)
 	return (0);
 }
 
-void	redirections(t_list **arg)
+void	ft_is_redirections(t_list **arg)
 {
 	int	i;
 
