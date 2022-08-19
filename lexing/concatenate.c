@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 13:09:53 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/19 21:22:34 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/19 21:31:43 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	not_space(t_list *arg)
 {
 	if ((ft_strcmp(arg->content, " ")) || (ft_strcmp(arg->content, " ") == 0
-		&& arg->quoted))
+			&& arg->quoted))
 		return (1);
 	return (0);
 }
