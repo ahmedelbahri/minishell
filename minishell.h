@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 17:06:52 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/02 14:58:01 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/20 03:04:29 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	ft_cmddelone(t_cmd *cmd, void (*del)(void*));
 void	ft_cmdclear(t_cmd **cmd, void (*del)(void*));
 //./include/ft_dellst.c
 void	ft_dellst(t_list **lst, t_list *del);
+//./include/ft_error.c
+void	ft_error(char *s);
 //./include/dubstr_include.c
 int		ft_dubstrlen(char **s);
 void	free_dub(char **content);

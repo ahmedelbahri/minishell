@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 22:12:45 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/24 16:04:08 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/20 04:40:25 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static void	ft_loop(t_list **arg, t_cmd **cmd)
 	quoted = NULL;
 	while (*arg)
 	{
-		if (ft_strcmp((*arg)->content, "|"))
+		if (ft_strcmp((*arg)->content, "|")
+			|| (ft_strcmp((*arg)->content, "|") == 0 && (*arg)->quoted))
 		{
 			content = reallocate_dub(content, (*arg)->content);
 			quoted = quots(quoted, (*arg)->quoted, ft_dubstrlen(content));
@@ -65,7 +66,8 @@ t_cmd	*split_pipe(t_list *arg)
 	cmd = NULL;
 	while (arg)
 	{
-		if (ft_strcmp(arg->content, "|"))
+		if (ft_strcmp(arg->content, "|") || (ft_strcmp(arg->content, "|") == 0
+			&& arg->quoted))
 			ft_loop(&arg, &cmd);
 		else if (ft_strcmp(arg->content, "|") == 0)
 			arg = arg->next;

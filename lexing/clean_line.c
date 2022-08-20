@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 18:44:27 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/02 14:51:59 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/20 04:54:59 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,7 @@ void	clean_line(t_list **arg, t_env *env)
 	}
 	while (*arg)
 	{
-		if (((*arg)->next && ft_strcmp((*arg)->next->content, " ") == 0
-				&& (*arg)->next->quoted == 0 && (*arg)->next->next
-				&& ft_is_opp((*arg)->next->next))
-			|| ((*arg)->quoted == 0 && ft_is_opp(*arg)
+		if (((*arg)->quoted == 0 && ft_strcmp((*arg)->content, "|") == 0
 				&& (*arg)->next && (*arg)->next->quoted == 0
 				&& ft_strcmp((*arg)->next->content, " ") == 0))
 			ft_dellst(arg, (*arg)->next);

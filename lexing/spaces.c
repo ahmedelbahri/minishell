@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 13:18:53 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/03 16:16:21 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/20 04:53:37 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ static void	in_between(t_list **arg)
 	tmp = (*arg);
 	while (tmp)
 	{
-		if (tmp->next && ft_cmpecho(tmp->content)
-			&& ft_strcmp(tmp->content, "|"))
+		if (tmp->next && ft_cmpecho(tmp->content))
 			del_in_between(&tmp);
 		else
 			is_echo(&tmp);

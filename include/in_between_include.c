@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:16:43 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/04 13:48:08 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/20 04:51:43 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	del_in_between(t_list **tmp)
 {
 	while ((*tmp))
 	{
-		if (ft_strcmp((*tmp)->content, "|") == 0)
+		if (ft_strcmp((*tmp)->content, "|") == 0 && (*tmp)->quoted == 0)
 		{
 			(*tmp) = (*tmp)->next;
 			break ;
@@ -45,7 +45,7 @@ void	is_echo(t_list **tmp)
 {
 	while (*tmp)
 	{
-		if (ft_strcmp((*tmp)->content, "|") == 0)
+		if (ft_strcmp((*tmp)->content, "|") == 0 && (*tmp)->quoted == 0)
 		{
 			(*tmp) = (*tmp)->next;
 			break ;
