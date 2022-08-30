@@ -6,7 +6,7 @@
 #    By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/19 15:18:51 by ahel-bah          #+#    #+#              #
-#    Updated: 2022/08/20 03:05:04 by ahel-bah         ###   ########.fr        #
+#    Updated: 2022/08/30 04:18:19 by ahel-bah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC = minishell.c \
 	  include/cmd_include.c include/dubstr_include.c include/env_include1.c\
 	  include/env_include2.c include/ft_dellst.c include/ft_error.c\
 	  include/ft_is_opp.c include/ft_lstinsert.c include/ft_strcmp.c\
-	  include/in_between_include.c\
+	  include/in_between_include.c include/red_include.c\
 \
 	  lexing/clean_line.c lexing/collect_args.c lexing/concatenate.c\
 	  lexing/define_opp.c lexing/double_quoting.c lexing/single_quoting.c\

@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 22:12:45 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/20 04:40:25 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/30 04:28:13 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_cmd	*split_pipe(t_list *arg)
 	while (arg)
 	{
 		if (ft_strcmp(arg->content, "|") || (ft_strcmp(arg->content, "|") == 0
-			&& arg->quoted))
+				&& arg->quoted))
 			ft_loop(&arg, &cmd);
 		else if (ft_strcmp(arg->content, "|") == 0)
 			arg = arg->next;

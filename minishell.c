@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:42:55 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/20 04:56:42 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/30 05:44:12 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	printdub(char **content)
 	printf("content[%d] = |%s|\n", i, content[i]);
 }
 
-static void	printdub_cmd(char **content, int *quoted, t_red red)
+static void	printdub_cmd(char **content, int *quoted, t_red *red)
 {
 	int	i;
 
@@ -37,30 +37,13 @@ static void	printdub_cmd(char **content, int *quoted, t_red red)
 		i++;
 	}
 	printf("content[%d] = |%s|\n", i, content[i]);
-	i = 0;
 	printf(">>>>redirections<<<<\n");
-	while (red.delimiter && red.delimiter[i])
+	while (red)
 	{
-		printf("red.delimiter: |%s|\n", red.delimiter[i]);
-		i++;
+		printf("type = |%d| file_name = |%s|\n", red->type, red->file_name);
+		red = red->next;
 	}
-	if (red.delimiter)
-		printf("red.delimiter[%d] = |%s|\n", i, red.delimiter[i]);
-	printf("<<<<<<<<<<<<<<<<<<<<\n");
-	if (red.in)
-		printf("red.infile = |%s|\n", red.in);
-	printf(">>>>>>>>>>>>>>>>>>>>\n");
-	i = 0;
-	while (red.out && red.out[i])
-	{
-		printf("red.outfile[%d] = |%s|\n", i, red.out[i]);
-		i++;
-	}
-	if (red.out)
-		printf("red.outfile[%d] = |%s|\n", i, red.out[i]);
 	printf(">>>>>>>>>><<<<<<<<<<\n");
-	printf("red.out_type = |%d|\n", red.out_type);
-	printf("red.in_type = |%d|\n", red.in_type);
 }
 
 void	ft_print(t_list *arg)
@@ -103,10 +86,10 @@ static void	check_line(char *buff, t_env *env)
 			cmd = split_pipe(arg);
 			redirections_parser(cmd);
 			// ft_execute(cmd, env);
-			// ft_print(arg);////////////////////delete
-			// printf("-----------------\n");////delete
-			// ft_print_cmd(cmd);////////////////delete
-			// printf("-----------------\n");////delete
+			ft_print(arg);////////////////////delete
+			printf("-----------------\n");////delete
+			ft_print_cmd(cmd);////////////////delete
+			printf("-----------------\n");////delete
 			ft_lstclear(&arg, free);
 			ft_cmdclear(&cmd, free);
 		}
@@ -128,7 +111,7 @@ int	main(int ac, char **av, char **nv)
 	t_env	*env;
 
 	signal(SIGINT, handler);
-	signal(SIGQUIT, handler);
+	signal(SIGQUIT, SIG_IGN);
 	ac = 0;
 	av = NULL;
 	env = ft_env(nv);
@@ -143,7 +126,7 @@ int	main(int ac, char **av, char **nv)
 		}
 		check_line(buff, env);
 		free(buff);
-		// system("leaks minishell");////////////delete
+		system("leaks minishell");////////////delete
 	}
 	return (0);
 }

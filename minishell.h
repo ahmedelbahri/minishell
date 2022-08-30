@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 17:06:52 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/20 03:04:29 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/30 04:46:33 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,9 @@
 
 typedef struct s_red
 {
-	char			**out;
-	int				out_type;
-	int				in_type;
-	char			*in;
-	char			**delimiter;
+	char			*file_name;
+	int				type;
+	struct s_red	*next;
 }					t_red;
 
 typedef struct s_lex
@@ -48,7 +46,7 @@ typedef struct s_cmd
 {
 	char			**content;
 	int				*quoted;
-	t_red			red;
+	t_red			*red;
 	struct s_cmd	*next;
 }				t_cmd;
 
@@ -100,6 +98,12 @@ int		ft_strcmp(const char *s1, const char *s2);
 void	del_in_between(t_list **tmp);
 int		ft_cmpecho(const char *s);
 void	is_echo(t_list **tmp);
+//./include/red_include.c
+t_red	*ft_rednew(char *file_name);
+t_red	*ft_redlast(t_red *red);
+void	ft_reddelone(t_red *red, void (*del)(void*));
+void	ft_redclear(t_red **red, void (*del)(void*));
+void	ft_redadd_back(t_red **red, t_red *new);
 //....................../lexing/........................
 //./lexing/clean_line.c
 void	clean_line(t_list **arg, t_env *env);

@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 11:27:06 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/24 16:17:20 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/30 04:14:09 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ t_env	*ft_envlast(t_env *env)
 
 void	ft_envdelone(t_env *env, void (*del)(void*))
 {
-	int	i;
-
-	i = 0;
 	del(env->name);
 	del(env->content);
 	free(env);

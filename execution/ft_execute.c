@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 14:29:38 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/19 22:05:19 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/29 01:03:34 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,27 @@
 	
 // }
 
-// void	exit_cmd(char **cmd, char **env)
+// int	exit_cmd(char **cmd, t_env *env)
 // {
-	
+// 	int	res;
+
+// 	res = 0;
+// 	if (ft_dubstrlen(cmd) > 2)
+// 	{
+// 		ft_error("Error:\n exit: too many arguments\n");
+// 		return (1);
+// 	}
+// 	if (ft_dubstrlen(cmd) == 2)
+// 	{
+// 		while (res < strlen())
+// 		{
+// 			res++;
+// 		}
+// 		res = ft_atoi(cmd[1]);
+// 	}
+// 	printf("exit\n");
+// 	ft_free_env(env);
+// 	exit(res);
 // }
 
 //nchofo ila kanet builtins wla la
@@ -61,22 +79,22 @@
 // }
 
 // ila kanet builtin n executiwha
-// void	exec_built_in(char **cmd)
+// int	exec_built_in(char **cmd, t_env *env)
 // {
-// 	if (ft_strncmp(cmd[0], "cd", 3))
-// 		return (cd_cmd(cmd));
-// 	else if (ft_strncmp(cmd[0], "pwd", 4))
-// 		return (pwd_cmd());
-// 	else if (ft_strncmp(cmd[0], "echo", 5))
-// 		return (echo_cmd(cmd));
-// 	else if (ft_strncmp(cmd[0], "env", 4))
-// 		return (env_cmd(cmd));
-// 	else if (ft_strncmp(cmd[0], "export", 7))
-// 		return (export_cmd(cmd));
-// 	else if (ft_strncmp(cmd[0], "unset", 6))
-// 		return (unset_cmd(cmd));
-// 	else if (ft_strncmp(cmd[0], "exit", 6))
-// 		return (exit_cmd(cmd));
+// 	if (ft_strcmp(cmd[0], "exit") == 0)
+// 		return (exit_cmd(cmd, env));
+// 	// else if (ft_strncmp(cmd[0], "cd", 3))
+// 	// 	return (cd_cmd(cmd));
+// 	// else if (ft_strncmp(cmd[0], "pwd", 4))
+// 	// 	return (pwd_cmd());
+// 	// else if (ft_strncmp(cmd[0], "echo", 5))
+// 	// 	return (echo_cmd(cmd));
+// 	// else if (ft_strncmp(cmd[0], "env", 4))
+// 	// 	return (env_cmd(cmd));
+// 	// else if (ft_strncmp(cmd[0], "export", 7))
+// 	// 	return (export_cmd(cmd));
+// 	// else if (ft_strncmp(cmd[0], "unset", 6))
+// 	// 	return (unset_cmd(cmd));
 // 	return (0);	
 // }
 
@@ -113,13 +131,12 @@
 // 	else if ((cmd[0] = get_absolute_path(cmd, env)) != NULL)
 // 		exec_cmd(cmd, env);
 // }
-void	ft_execute(t_cmd *cmd, t_env *env)
-{
-	env = NULL;
-	if (ft_strcmp(cmd->content[0], "exit") == 0)
-	{
-		printf("exit\n");
-		ft_free_env(env);
-		exit(0);
-	}
-}
+
+// void	ft_execute(t_cmd *cmd, t_env *env)
+// {
+// 	while (cmd)
+// 	{
+// 		exec_built_in(cmd->content, env);
+// 		cmd = cmd->next;
+// 	}
+// }

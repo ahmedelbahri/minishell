@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 19:02:03 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/28 21:15:32 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/08/30 05:21:16 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_cmd	*ft_cmdnew(char **content, int *quoted)
 		return (0);
 	cmd->content = content;
 	cmd->quoted = quoted;
+	cmd->red = NULL;
 	cmd->next = NULL;
 	return (cmd);
 }
@@ -37,10 +38,7 @@ t_cmd	*ft_cmdlast(t_cmd *cmd)
 void	ft_cmddelone(t_cmd *cmd, void (*del)(void*))
 {
 	free_dub(cmd->content);
-	free_dub(cmd->red.out);
-	free_dub(cmd->red.delimiter);
-	if (cmd->red.in != NULL)
-		del(cmd->red.in);
+	ft_redclear(&(cmd->red), del);
 	del(cmd->quoted);
 	free(cmd);
 }
