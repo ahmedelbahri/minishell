@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+         #
+#    By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/19 15:18:51 by ahel-bah          #+#    #+#              #
-#    Updated: 2022/09/02 04:30:03 by ahel-bah         ###   ########.fr        #
+#    Updated: 2022/09/02 04:46:03 by waelhamd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS = -Wall -Wextra -Werror
 SRC = minishell.c \
 \
 	  execution/built-ins/ft_env.c execution/built-ins/ft_exit.c\
-	  execution/ft_execute.c execution/built-ins/ft_echo.c\
+	  execution/exec_multi_cmd.c execution/built-ins/ft_echo.c\
 	  execution/built-ins/ft_pwd.c\
 \
 	  include/cmd_include.c include/dubstr_include.c include/env_include.c\

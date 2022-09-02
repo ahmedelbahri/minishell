@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:42:55 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/02 04:01:28 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/02 04:48:03 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ static void	check_line(char *buff, t_env *env)
 		{
 			cmd = split_pipe(arg);
 			redirections_parser(cmd);
-			ft_execute(cmd, env);
-			ft_print(arg);////////////////////delete
-			printf("-----------------\n");////delete
-			ft_print_cmd(cmd);////////////////delete
-			printf("-----------------\n");////delete
+			exec_multi_cmd(cmd, &env);
+			// ft_print(arg);////////////////////delete
+			// printf("-----------------\n");////delete
+			// ft_print_cmd(cmd);////////////////delete
+			// printf("-----------------\n");////delete
 			ft_lstclear(&arg, free);
 			ft_cmdclear(&cmd, free);
 		}

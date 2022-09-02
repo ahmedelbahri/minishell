@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 22:33:27 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/02 04:00:22 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/02 04:44:12 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_free_env(t_env *env)
 	}
 }
 
-static void	print_env(t_env *env)
+void	print_env(t_env *env)
 {
 	while (env != NULL)
 	{
