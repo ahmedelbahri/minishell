@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 16:46:18 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/02 14:51:32 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:17:31 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static void	reallocate(t_list **arg, char *new)
 
 static void	insert_allocat(t_list **arg, int i)
 {
-	ft_lstinsert(arg, ft_lstnew(ft_substr((*arg)->content, i,
+	ft_lstinsert(arg, ft_lstnew(ft_substr_lex((*arg)->content, i,
 				ft_strlen((*arg)->content)), 0));
-	reallocate(arg, ft_substr((*arg)->content, 0, i));
+	reallocate(arg, ft_substr_lex((*arg)->content, 0, i));
 }
 
 static int	ft_tbd(t_list **arg, int *i, char c)

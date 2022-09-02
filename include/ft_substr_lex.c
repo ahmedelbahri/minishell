@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   collect_args.c                                     :+:      :+:    :+:   */
+/*   ft_substr_lex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/12 19:12:14 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/02 01:10:14 by ahel-bah         ###   ########.fr       */
+/*   Created: 2022/09/01 17:02:44 by ahel-bah          #+#    #+#             */
+/*   Updated: 2022/09/02 01:31:57 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	collect_args(char *buff, t_lex *lex, t_list **arg)
+char	*ft_substr_lex(char *s, unsigned int start, size_t end)
 {
-	int	i;
+	char			*s1;
+	unsigned int	i;
 
+	if (!s)
+		return (0);
+	if (start >= ft_strlen(s))
+		return (ft_strdup(""));
+	if (ft_strlen(s) < end)
+		end = ft_strlen(s);
+	s1 = (char *)malloc(sizeof(char) * end + 1);
+	if (s1 == 0)
+		return (0);
 	i = 0;
-	while (buff[lex->i] && buff[lex->i] != '\''
-		&& buff[lex->i] != '"' && buff[lex->i] != ' ')
+	while (start < end)
 	{
-		if (i++ == 0)
-			lex->argstart = lex->i;
-		lex->i++;
+		s1[i] = s[start];
+		i++;
+		start++;
 	}
-	lex->arglen = lex->i;
-	if (i > 0)
-		ft_lstadd_back(arg,
-			ft_lstnew(ft_substr_lex(buff, lex->argstart, lex->arglen), 0));
+	s1[i] = '\0';
+	return (s1);
 }

@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 16:09:07 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/30 05:54:35 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/01 16:51:27 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ static int	ft_set_red(t_cmd *cmd, int i)
 			|| ft_strcmp(cmd->content[i], "<") == 0
 			|| ft_strcmp(cmd->content[i], ">") == 0) && cmd->quoted[i] == 0)
 	{
+		if (cmd->content[i + 1] && cmd->quoted[i + 1] == 0
+			&& ft_strcmp(cmd->content[i + 1], " ") == 0)
+			cmd->content = remove_str(cmd->content, i + 1);
 		ft_redadd_back(&cmd->red, ft_rednew(ft_strdup(cmd->content[i + 1])));
 		if (ft_strcmp(cmd->content[i], ">") == 0)
 			ft_redlast(cmd->red)->type = OUTFILE;
@@ -37,9 +40,9 @@ void	redirections_parser(t_cmd *cmd)
 {
 	int	i;
 
-	i = 0;
 	while (cmd)
 	{
+		i = 0;
 		while (cmd->content[i])
 		{
 			if (cmd->quoted[i] == 0 && ft_set_red(cmd, i))
@@ -50,6 +53,9 @@ void	redirections_parser(t_cmd *cmd)
 				cmd->quoted = remove_array_column(cmd->quoted,
 						ft_dubstrlen(cmd->content), i);
 				cmd->content = remove_str(cmd->content, i);
+				if (cmd->content[i] && cmd->quoted[i] == 0
+					&& ft_strcmp(cmd->content[i], " ") == 0)
+					cmd->content = remove_str(cmd->content, i);
 			}
 			else
 				i++;

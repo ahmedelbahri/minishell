@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:42:55 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/30 05:44:12 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/02 04:01:28 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	check_line(char *buff, t_env *env)
 		{
 			cmd = split_pipe(arg);
 			redirections_parser(cmd);
-			// ft_execute(cmd, env);
+			ft_execute(cmd, env);
 			ft_print(arg);////////////////////delete
 			printf("-----------------\n");////delete
 			ft_print_cmd(cmd);////////////////delete
@@ -126,7 +126,7 @@ int	main(int ac, char **av, char **nv)
 		}
 		check_line(buff, env);
 		free(buff);
-		system("leaks minishell");////////////delete
+		// system("leaks minishell");////////////delete
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 11:42:28 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/06/23 17:40:03 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/02 03:26:20 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int	single_quoting(char *buff, t_lex *lex, t_list **arg)
 		{
 			lex->arglen = lex->i;
 			ft_lstadd_back(arg,
-				ft_lstnew(ft_substr(buff, lex->argstart, lex->arglen), 1));
+				ft_lstnew(ft_substr_lex(buff, lex->argstart, lex->arglen), 1));
 			lex->i++;
 			return (0);
 		}
 		lex->i++;
 	}
-	perror("orrror");
-	return (1);
+	printf("Error:\n syntax error: uninterpreted single quote.\n");
+	return (258);
 }

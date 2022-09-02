@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 17:06:52 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/30 04:46:33 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/02 04:29:04 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,16 @@ typedef struct s_env
 }				t_env;
 
 //....................../execution/.....................
+//./execution/built-ins/ft_echo.c
+int		ft_echo(char **content);
 //./execution/built-ins/ft_env.c
+void	ft_free_env(t_env *env);
+int		ft_env_cmd(t_env *env, char **content);
 t_env	*ft_env(char **nv);
+//./execution/built-ins/ft_exit.c
+int		ft_exit(char **content, t_env *env);
+//./execution/built-ins/ft_pwd.c
+int		ft_pwd(char **content, t_env *env);
 //./execution/ft_execute.c
 void	ft_execute(t_cmd *cmd, t_env *env);
 //....................../include/.......................
@@ -85,18 +93,18 @@ t_env	*ft_envlast(t_env *env);
 void	ft_envadd_back(t_env **env, t_env *new);
 void	ft_envdelone(t_env *env, void (*del)(void*));
 void	ft_envclear(t_env **env, void (*del)(void*));
-//./include/env_tools.c
-void	ft_free_env(t_env *env);
-void	print_env(t_env *env);
 //./include/ft_is_opp.c
 int		ft_is_opp(t_list *arg);
 //./include/ft_lstinsert.c
 void	ft_lstinsert(t_list **lst, t_list *new);
 //./include/ft_strcmp.c
 int		ft_strcmp(const char *s1, const char *s2);
+//./include/ft_substr_lex.c
+char	*ft_substr_lex(char *s, unsigned int start, size_t end);
 //./include/in_between_include.c
 void	del_in_between(t_list **tmp);
 int		ft_cmpecho(const char *s);
+int		ft_ncmp(char *s1);
 void	is_echo(t_list **tmp);
 //./include/red_include.c
 t_red	*ft_rednew(char *file_name);

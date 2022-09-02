@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 18:44:27 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/20 04:54:59 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/02 03:39:56 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	ft_expend(t_list **arg, t_env *env, int d)
 	{
 		ft_lstinsert(arg, ft_lstnew(ft_strdup(&(*arg)->content[d]), 0));
 		tmp = (*arg)->content;
-		(*arg)->content = ft_substr((*arg)->content, 0, d);
+		(*arg)->content = ft_substr_lex((*arg)->content, 0, d);
 		free(tmp);
 		return ;
 	}
@@ -56,7 +56,7 @@ static void	ft_expend(t_list **arg, t_env *env, int d)
 		ft_lstinsert(arg, ft_lstnew(
 				ft_strdup(&((*arg)->content[len])), (*arg)->quoted));
 		tmp = (*arg)->content;
-		(*arg)->content = ft_substr((*arg)->content, 0, len);
+		(*arg)->content = ft_substr_lex((*arg)->content, 0, len);
 		free(tmp);
 	}
 	ft_replace(arg, env);
@@ -77,7 +77,7 @@ static void	dollar(t_list **arg, t_env *env)
 		ft_lstinsert(arg, ft_lstnew(ft_strdup(&(*arg)->content[i]),
 				(*arg)->quoted));
 		tmp = (*arg)->content;
-		(*arg)->content = ft_substr((*arg)->content, 0, i);
+		(*arg)->content = ft_substr_lex((*arg)->content, 0, i);
 		free(tmp);
 	}
 	while ((*arg)->content[i++] == '$' && (*arg)->content[i] == '$')

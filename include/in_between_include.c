@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:16:43 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/20 04:51:43 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/02 04:06:10 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,24 @@ void	del_in_between(t_list **tmp)
 	}
 }
 
+int	ft_ncmp(char *s1)
+{
+	size_t	i;
+
+	i = 1;
+	if (s1 == NULL)
+		return (1);
+	if (s1[0] != '-')
+		return (1);
+	while (s1[i])
+	{
+		if (s1[i] != 'n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	is_echo(t_list **tmp)
 {
 	while (*tmp)
@@ -54,7 +72,7 @@ void	is_echo(t_list **tmp)
 			&& ft_strcmp((*tmp)->next->content, " ") == 0)
 		{
 			ft_dellst(tmp, (*tmp)->next);
-			if ((*tmp)->next && ft_strcmp((*tmp)->next->content, "-n") == 0)
+			if ((*tmp)->next && ft_ncmp((*tmp)->next->content) == 0)
 			{
 				(*tmp) = (*tmp)->next;
 				if ((*tmp)->next && ft_strcmp((*tmp)->next->content, " ") == 0)

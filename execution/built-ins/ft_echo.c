@@ -1,38 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_include2.c                                     :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/04 14:47:04 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/07/24 16:17:23 by ahel-bah         ###   ########.fr       */
+/*   Created: 2022/08/31 22:25:19 by ahel-bah          #+#    #+#             */
+/*   Updated: 2022/09/02 04:06:17 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-void	ft_free_env(t_env *env)
+int	ft_echo(char **content)
 {
-	t_env	*tmp;
+	int	i;
+	int	yes;
 
-	while (env)
+	i = 1;
+	yes = 0;
+	if (ft_ncmp(content[i]) == 0)
 	{
-		tmp = env;
-		free(env->content);
-		free(env->name);
-		env = env->next;
-		free(tmp);
+		i++;
+		yes++;
 	}
-}
-
-void	print_env(t_env *env)
-{
-	while (env != NULL)
+	while (content[i])
 	{
-		printf("%s", env->name);
-		printf("=");
-		printf("%s\n", env->content);
-		env = env->next;
+		printf("%s", content[i]);
+		i++;
 	}
+	if (yes == 0)
+		printf("\n");
+	return (0);
 }

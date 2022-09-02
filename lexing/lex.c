@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 19:44:22 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/01 17:37:33 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:17:18 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	is_space(char *buff, t_lex *lex, t_list **arg)
 	while (buff[lex->i] == ' ')
 		lex->i++;
 	ft_lstadd_back(arg,
-		ft_lstnew(ft_substr(buff, lex->argstart, lex->arglen), 0));
+		ft_lstnew(ft_substr_lex(buff, lex->argstart, lex->arglen), 0));
 }
 
 int	lex(char *buff, t_list **arg, t_env *env)
