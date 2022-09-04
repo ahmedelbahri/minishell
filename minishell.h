@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 17:06:52 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/02 04:46:30 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/04 13:27:30 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 # include <signal.h>
 # include <stdlib.h>
 # include "libft/libft.h"
+#include <stdbool.h>
+
+int g_exit_status;
 
 typedef struct s_red
 {
@@ -58,8 +61,6 @@ typedef struct s_env
 }				t_env;
 
 //....................../execution/.....................
-//./execution/built-ins/ft_echo.c
-int		ft_echo(char **content);
 //./execution/built-ins/ft_env.c
 void	ft_free_env(t_env *env);
 int		ft_env_cmd(t_env *env, char **content);
@@ -68,9 +69,18 @@ t_env	*ft_env(char **nv);
 //./execution/built-ins/ft_exit.c
 int		ft_exit(char **content, t_env *env);
 //./execution/built-ins/ft_pwd.c
-int		ft_pwd(char **content, t_env *env);
+int		ft_pwd(char **content, t_env *envp);
+void	ft_export(char **cmd, t_env **env);
+void	ft_cd(char **cmd);
+void	ft_unset(char **cmd, t_env *env);
+int		ft_echo(char **content);
 //./execution/ft_execute.c
 void	exec_multi_cmd(t_cmd *cmd_list, t_env **env);
+void	exec_all(t_cmd *cmd, t_env **env);
+char	**lst_to_array(t_env *env);
+bool	is_builtins(char *cmd);
+int		exec_builtins(char **cmd, t_red *red, t_env *env);
+int		check_redirections(t_red *red);
 //....................../include/.......................
 //./include/cmd_include.c
 t_cmd	*ft_cmdlast(t_cmd *cmd);

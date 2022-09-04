@@ -6,7 +6,7 @@
 #    By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/19 15:18:51 by ahel-bah          #+#    #+#              #
-#    Updated: 2022/09/02 04:46:03 by waelhamd         ###   ########.fr        #
+#    Updated: 2022/09/04 12:03:15 by waelhamd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,9 @@ SRC = minishell.c \
 \
 	  execution/built-ins/ft_env.c execution/built-ins/ft_exit.c\
 	  execution/exec_multi_cmd.c execution/built-ins/ft_echo.c\
-	  execution/built-ins/ft_pwd.c\
+	  execution/built-ins/ft_pwd.c execution/lst_to_array.c \
+	  execution/exec_builtins.c execution/built-ins/ft_cd.c\
+	  execution/built-ins/ft_export.c execution/built-ins/ft_unset.c \
 \
 	  include/cmd_include.c include/dubstr_include.c include/env_include.c\
 	  include/ft_dellst.c include/ft_error.c include/ft_is_opp.c\

@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:42:55 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/02 04:48:03 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/04 22:25:28 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ static void	check_line(char *buff, t_env *env)
 		{
 			cmd = split_pipe(arg);
 			redirections_parser(cmd);
-			exec_multi_cmd(cmd, &env);
+			//g_global exit_status=0;
+			exec_all(cmd, &env);
 			// ft_print(arg);////////////////////delete
 			// printf("-----------------\n");////delete
 			// ft_print_cmd(cmd);////////////////delete
@@ -126,7 +127,7 @@ int	main(int ac, char **av, char **nv)
 		}
 		check_line(buff, env);
 		free(buff);
-		// system("leaks minishell");////////////delete
+		 system("leaks minishell");////////////delete
 	}
 	return (0);
 }
