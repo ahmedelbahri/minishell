@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:42:55 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/04 22:25:28 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/05 19:49:33 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static void	check_line(char *buff, t_env *env)
 			ft_lstclear(&arg, free);
 		else
 		{
+			ft_wildcard(&arg);
 			cmd = split_pipe(arg);
 			redirections_parser(cmd);
 			//g_global exit_status=0;
@@ -127,7 +128,7 @@ int	main(int ac, char **av, char **nv)
 		}
 		check_line(buff, env);
 		free(buff);
-		 system("leaks minishell");////////////delete
+		// system("leaks minishell");////////////delete
 	}
 	return (0);
 }

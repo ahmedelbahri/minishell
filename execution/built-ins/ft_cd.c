@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:08:59 by waelhamd          #+#    #+#             */
-/*   Updated: 2022/09/04 15:42:26 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/05 20:03:03 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_cd(char **cmd)
 			printf("cd: HOME not set\n");
 		}
 		i = chdir(path);
-		free(path);
+		// free(path); 
 	}
 	else
 		i = argument_dir(cmd[1]);

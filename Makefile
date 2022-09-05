@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+         #
+#    By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/19 15:18:51 by ahel-bah          #+#    #+#              #
-#    Updated: 2022/09/04 12:03:15 by waelhamd         ###   ########.fr        #
+#    Updated: 2022/09/05 18:46:30 by ahel-bah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRC = minishell.c \
 	  lexing/define_opp.c lexing/double_quoting.c lexing/single_quoting.c\
 	  lexing/lex.c lexing/spaces.c\
 \
-	  parsing/ft_errors.c parsing/redirections_parser.c parsing/split_pipe.c
+	  parsing/ft_errors.c parsing/redirections_parser.c parsing/split_pipe.c\
+	  parsing/wildcard.c
 
 OBJ = $(SRC:.c=.o)
 	

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 17:06:52 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/04 13:27:30 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/05 18:52:15 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@
 # include <signal.h>
 # include <stdlib.h>
 # include "libft/libft.h"
-#include <stdbool.h>
+# include <dirent.h>
+# include <stdbool.h>
 
-int g_exit_status;
+int	g_exit_status;
 
 typedef struct s_red
 {
@@ -149,6 +150,8 @@ int		ft_errors(t_list *arg);
 void	redirections_parser(t_cmd *cmd);
 //./parsing/splite_pipe.c
 t_cmd	*split_pipe(t_list *arg);
+//./parsing/wildcard.c
+void	ft_wildcard(t_list **arg);
 //./minishell.c
 void	printdub(char **content);///////////////////////debug
 void	ft_print_cmd(t_cmd *cmd);///////////////////////debug

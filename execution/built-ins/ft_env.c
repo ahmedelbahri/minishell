@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 22:33:27 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/04 22:16:33 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/05 18:53:39 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_env	*ft_env(char **nv)
 		ft_envadd_back(&env, ft_envnew(ft_substr_lex(nv[i], start,
 					ft_strlen(nv[i])), ft_substr_lex(nv[i], 0, start - 1)));
 		if (ft_strcmp(ft_envlast(env)->name, "SHLVL") == 0
-            && ft_envlast(env)->content[0] < 9)
+            && ft_envlast(env)->content[0] - 48 < 9)
             ft_envlast(env)->content[0]++;
 		i++;
 	}

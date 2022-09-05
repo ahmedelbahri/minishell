@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:13:07 by waelhamd          #+#    #+#             */
-/*   Updated: 2022/09/04 22:34:53 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/05 20:14:39 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,16 @@ static void	add_or_change(char **tab, char s, t_env **envirenemt)
 					env->content = ft_strjoin(env->content, tab[1]);
 				else
 					env->content = tab[1];
-				free(tab[1]);
-				free(tab[0]);
+				// free(tab[1]);
+				// free(tab[0]);
 				return ;
 			}
 		}
 		env = env->next;
 	}
 	ft_envadd_back(envirenemt, ft_envnew(tab[1], tab[0]));
-	free(tab[1]);
-	free(tab[0]);
+	// free(tab[1]);
+	// free(tab[0]);
 }
 
 static int	export_element(char *name, t_env **env)
