@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:42:55 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/05 19:49:33 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/07 04:18:43 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static void	printdub_cmd(char **content, int *quoted, t_red *red)
 	printf(">>>>redirections<<<<\n");
 	while (red)
 	{
-		printf("type = |%d| file_name = |%s|\n", red->type, red->file_name);
+		printf("type = |%d| file_name = |%s| pipe_0 |%d|\n", red->type,
+			red->file_name, red->pipe_0);
 		red = red->next;
 	}
 	printf(">>>>>>>>>><<<<<<<<<<\n");
@@ -98,7 +99,7 @@ static void	check_line(char *buff, t_env *env)
 	}
 }
 
-static void	handler(int sig)
+void	handler(int sig)
 {
 	if (sig == SIGINT)
 		write(1, "\n", 1);

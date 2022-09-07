@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 18:44:27 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/02 03:39:56 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/07 04:08:58 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	clean_line(t_list **arg, t_env *env)
 		define_pipe(&tmp);
 		tmp = tmp->next;
 	}
+	ft_herdoc(arg);
 	while (*arg)
 	{
 		if (((*arg)->quoted == 0 && ft_strcmp((*arg)->content, "|") == 0

@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 22:12:45 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/30 04:28:13 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/07 04:06:27 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ static void	ft_loop(t_list **arg, t_cmd **cmd)
 {
 	char	**content;
 	int		*quoted;
+	int		*pipe;
 
 	content = NULL;
+	pipe = NULL;
 	quoted = NULL;
 	while (*arg)
 	{
@@ -51,12 +53,13 @@ static void	ft_loop(t_list **arg, t_cmd **cmd)
 		{
 			content = reallocate_dub(content, (*arg)->content);
 			quoted = quots(quoted, (*arg)->quoted, ft_dubstrlen(content));
+			pipe = quots(pipe, (*arg)->pipe_0, ft_dubstrlen(content));
 		}
 		else
 			break ;
 		(*arg) = (*arg)->next;
 	}
-	ft_cmdadd_back(cmd, ft_cmdnew(content, quoted));
+	ft_cmdadd_back(cmd, ft_cmdnew(content, quoted, pipe));
 }
 
 t_cmd	*split_pipe(t_list *arg)

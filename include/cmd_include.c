@@ -6,13 +6,13 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 19:02:03 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/30 05:21:16 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/07 04:14:57 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_cmd	*ft_cmdnew(char **content, int *quoted)
+t_cmd	*ft_cmdnew(char **content, int *quoted, int *pipe)
 {
 	t_cmd	*cmd;
 
@@ -21,6 +21,7 @@ t_cmd	*ft_cmdnew(char **content, int *quoted)
 		return (0);
 	cmd->content = content;
 	cmd->quoted = quoted;
+	cmd->pipe = pipe;
 	cmd->red = NULL;
 	cmd->next = NULL;
 	return (cmd);
@@ -40,6 +41,7 @@ void	ft_cmddelone(t_cmd *cmd, void (*del)(void*))
 	free_dub(cmd->content);
 	ft_redclear(&(cmd->red), del);
 	del(cmd->quoted);
+	del(cmd->pipe);
 	free(cmd);
 }
 

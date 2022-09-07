@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 17:06:52 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/05 18:52:15 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/07 04:03:27 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_red
 {
 	char			*file_name;
 	int				type;
+	int				pipe_0;
 	struct s_red	*next;
 }					t_red;
 
@@ -50,6 +51,7 @@ typedef struct s_cmd
 {
 	char			**content;
 	int				*quoted;
+	int				*pipe;
 	t_red			*red;
 	struct s_cmd	*next;
 }				t_cmd;
@@ -85,7 +87,7 @@ int		check_redirections(t_red *red);
 //....................../include/.......................
 //./include/cmd_include.c
 t_cmd	*ft_cmdlast(t_cmd *cmd);
-t_cmd	*ft_cmdnew(char **content, int *quoted);
+t_cmd	*ft_cmdnew(char **content, int *quoted, int *pipe);
 void	ft_cmdadd_back(t_cmd **cmd, t_cmd *new);
 void	ft_cmddelone(t_cmd *cmd, void (*del)(void*));
 void	ft_cmdclear(t_cmd **cmd, void (*del)(void*));
@@ -136,6 +138,8 @@ void	define_pipe(t_list **arg);
 void	ft_is_redirections(t_list **arg);
 //./lexing/double_quoting.c
 int		double_quoting(char *buff, t_lex *lex, t_list **arg);
+//./lexing/ft_herdoc.c
+void	ft_herdoc(t_list **arg);
 //./lexing/single_quoting.c
 int		lex(char *buff, t_list **arg, t_env *env);
 //./lexing/lex.c
@@ -153,6 +157,7 @@ t_cmd	*split_pipe(t_list *arg);
 //./parsing/wildcard.c
 void	ft_wildcard(t_list **arg);
 //./minishell.c
+void	handler(int sig);
 void	printdub(char **content);///////////////////////debug
 void	ft_print_cmd(t_cmd *cmd);///////////////////////debug
 void	ft_print(t_list *arg);//////////////////////////debug

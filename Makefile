@@ -6,7 +6,7 @@
 #    By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/19 15:18:51 by ahel-bah          #+#    #+#              #
-#    Updated: 2022/09/05 18:46:30 by ahel-bah         ###   ########.fr        #
+#    Updated: 2022/09/07 04:17:17 by ahel-bah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRC = minishell.c \
 	  execution/exec_multi_cmd.c execution/built-ins/ft_echo.c\
 	  execution/built-ins/ft_pwd.c execution/lst_to_array.c \
 	  execution/exec_builtins.c execution/built-ins/ft_cd.c\
-	  execution/built-ins/ft_export.c execution/built-ins/ft_unset.c \
+	  execution/built-ins/ft_export.c execution/built-ins/ft_unset.c\
 \
 	  include/cmd_include.c include/dubstr_include.c include/env_include.c\
 	  include/ft_dellst.c include/ft_error.c include/ft_is_opp.c\
@@ -30,7 +30,7 @@ SRC = minishell.c \
 \
 	  lexing/clean_line.c lexing/collect_args.c lexing/concatenate.c\
 	  lexing/define_opp.c lexing/double_quoting.c lexing/single_quoting.c\
-	  lexing/lex.c lexing/spaces.c\
+	  lexing/ft_herdoc.c lexing/lex.c lexing/spaces.c\
 \
 	  parsing/ft_errors.c parsing/redirections_parser.c parsing/split_pipe.c\
 	  parsing/wildcard.c
