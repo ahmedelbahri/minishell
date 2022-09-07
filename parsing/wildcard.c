@@ -20,14 +20,15 @@ static int	ft_is_wildcard(t_list **arg, int i)
 
 	yes = 0;
 	dir = opendir(".");
+	if (!dir)
+		return (0);
 	dirent = readdir(dir);
 	while (dirent)
 	{
-		if (dirent->d_name[0] != '.')
+		if (dirent->d_name[0] != '.' && ++yes)
 		{
 			ft_lstinsert(arg, ft_lstnew(ft_strdup(dirent->d_name), 0));
 			(*arg) = (*arg)->next;
-			yes++;
 		}
 		dirent = readdir(dir);
 		if (dirent && dirent->d_name[0] != '.' && yes && i == 1)
