@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 17:06:52 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/07 04:03:27 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/08 00:39:32 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,10 @@ void	ft_redclear(t_red **red, void (*del)(void*));
 void	ft_redadd_back(t_red **red, t_red *new);
 //....................../lexing/........................
 //./lexing/clean_line.c
+void	ft_replace(t_list **arg, t_env *env);
+void	ft_expend(t_list **arg, t_env *env, int d);
+void	dollar(t_list **arg, t_env *env);
+int		count_dollars(char *arg);
 void	clean_line(t_list **arg, t_env *env);
 //./lexing/collect_args.c
 void	collect_args(char *buff, t_lex *lex, t_list **arg);
@@ -139,7 +143,7 @@ void	ft_is_redirections(t_list **arg);
 //./lexing/double_quoting.c
 int		double_quoting(char *buff, t_lex *lex, t_list **arg);
 //./lexing/ft_herdoc.c
-void	ft_herdoc(t_list **arg);
+void	ft_herdoc(t_list **arg, t_env *env);
 //./lexing/single_quoting.c
 int		lex(char *buff, t_list **arg, t_env *env);
 //./lexing/lex.c

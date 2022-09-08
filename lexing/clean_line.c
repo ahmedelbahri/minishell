@@ -6,13 +6,13 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 18:44:27 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/07 04:08:58 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/08 00:39:57 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	ft_replace(t_list **arg, t_env *env)
+void	ft_replace(t_list **arg, t_env *env)
 {
 	char	*tmp;
 
@@ -34,7 +34,7 @@ static void	ft_replace(t_list **arg, t_env *env)
 	}
 }
 
-static void	ft_expend(t_list **arg, t_env *env, int d)
+void	ft_expend(t_list **arg, t_env *env, int d)
 {
 	int		len;
 	char	*tmp;
@@ -62,7 +62,7 @@ static void	ft_expend(t_list **arg, t_env *env, int d)
 	ft_replace(arg, env);
 }
 
-static void	dollar(t_list **arg, t_env *env)
+void	dollar(t_list **arg, t_env *env)
 {
 	int		i;
 	char	*tmp;
@@ -86,7 +86,7 @@ static void	dollar(t_list **arg, t_env *env)
 		ft_expend(arg, env, sequenced_dollars);
 }
 
-static int	count_dollars(char *arg)
+int	count_dollars(char *arg)
 {
 	int	i;
 	int	dollars;
@@ -113,7 +113,7 @@ void	clean_line(t_list **arg, t_env *env)
 		define_pipe(&tmp);
 		tmp = tmp->next;
 	}
-	ft_herdoc(arg);
+	ft_herdoc(arg, env);
 	while (*arg)
 	{
 		if (((*arg)->quoted == 0 && ft_strcmp((*arg)->content, "|") == 0

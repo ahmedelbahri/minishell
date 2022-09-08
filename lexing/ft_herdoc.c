@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 22:51:30 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/07 04:10:04 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/08 01:27:13 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,34 @@ static int	ft_get_in(t_list *tmp)
 	return (0);
 }
 
-static int	ft_read_herdoc(int fd[2], t_list *tmp)
+static char	*herdoc_dollar(char *s, t_env *env)
+{
+	char	*ret;
+	t_list	*arg;
+	t_list	*tmp;
+
+	arg = ft_lstnew(ft_strdup(s), 0);
+	free(s);
+	tmp = arg;
+	while (tmp)
+	{
+		dollar(&tmp, env);
+		tmp = tmp->next;
+	}
+	tmp = arg;
+	ret = ft_strdup("");
+	while (tmp)
+	{
+		s = ret;
+		ret = ft_strjoin(ret, tmp->content);
+		free(s);
+		tmp = tmp->next;
+	}
+	ft_lstclear(&arg, free);
+	return (ret);
+}
+
+static int	ft_read_herdoc(int fd[2], t_list *tmp, t_env *env)
 {
 	char	*s;
 
@@ -49,6 +76,8 @@ static int	ft_read_herdoc(int fd[2], t_list *tmp)
 				free(s);
 			break ;
 		}
+		if (count_dollars(s))
+			s = herdoc_dollar(s, env);
 		ft_putstr_fd(s, fd[1]);
 		ft_putstr_fd("\n", fd[1]);
 		free(s);
@@ -58,7 +87,7 @@ static int	ft_read_herdoc(int fd[2], t_list *tmp)
 	exit(0);
 }
 
-void	ft_herdoc(t_list **arg)
+void	ft_herdoc(t_list **arg, t_env *env)
 {
 	int		f;
 	int		fd[2];
@@ -74,7 +103,7 @@ void	ft_herdoc(t_list **arg)
 			signal(SIGINT, SIG_IGN);
 			f = fork();
 			if (!f)
-				ft_read_herdoc(fd, tmp);
+				ft_read_herdoc(fd, tmp, env);
 			close(fd[1]);
 			wait(&f);
 			signal(SIGINT, handler);
