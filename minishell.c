@@ -88,7 +88,10 @@ static void	check_line(char *buff, t_env *env)
 			cmd = split_pipe(arg);
 			redirections_parser(cmd);
 			//g_global exit_status=0;
+			if (cmd->content[0] && !ft_strcmp(cmd->content[0], "./minishell"))
+				signal(SIGINT, SIG_IGN);
 			exec_all(cmd, &env);
+			signal(SIGINT, handler);
 			// ft_print(arg);////////////////////delete
 			// printf("-----------------\n");////delete
 			// ft_print_cmd(cmd);////////////////delete
@@ -120,7 +123,7 @@ int	main(int ac, char **av, char **nv)
 	env = ft_env(nv);
 	while (1)
 	{
-		buff = readline("\033[0;36m\e[1mminishell\e[m:~$ ");
+		buff = readline("minishell:~$ ");
 		if (!buff)
 		{
 			ft_free_env(env);
