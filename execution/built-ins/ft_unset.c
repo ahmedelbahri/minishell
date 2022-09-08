@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 18:30:38 by waelhamd          #+#    #+#             */
-/*   Updated: 2022/09/04 15:45:33 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/07 22:24:55 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void ft_unset(char **cmd, t_env *env)
 			env = env->next;
 			free_variable(tmp_lst);	
 		}
-		else
+		else if(!ft_strcmp(cmd[i], tmp_lst->name))
 			del_variable(cmd[i], tmp_lst);
 		i++;
 	}

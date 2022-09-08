@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 14:29:38 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/04 15:40:39 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:15:37 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 int	check_redirections(t_red *red);
 static int	create_file(t_red *red, int fd);
 
-char	*get_absolute_path(char *cmd)
+char	*get_absolute_path(char *cmd, t_env *env)
 {
 	char *path;
 	char **split_path;
 	char *join;
 	int i = 0;
 
-	if(access(cmd, F_OK) == 0)
+	if(access(cmd, X_OK) == 0)
 		return(cmd);
-	path = getenv("PATH");
+	path = ft_getenv(env, "PATH");
 	split_path = ft_split(path, ':');
 	while(split_path[i] != NULL)
 	{
 		join = ft_strjoin(split_path[i], "/");
 		path = ft_strjoin(join, cmd);
 		free(join);
-		if(access(path, F_OK) == 0)
+		if(access(path, X_OK) == 0)
 		{
 			//free split_path defenitly
 			return(path);
@@ -46,11 +46,12 @@ char	*get_absolute_path(char *cmd)
 
 static int	create_file(t_red *red, int fd)
 {
-	// if (red->type == HERDOC)
-	// {
-	// 	dup2(red->fd, 0);
-	// 	close(red->fd);
-	// }
+	if (red->type == HERDOC)
+	{
+		// dup2(red->fd, 0);
+		// close(red->fd);
+		return (1);
+	}
 	if (red->type == INFILE)
 	{
 		fd = open(red->file_name, O_RDONLY);
@@ -61,6 +62,7 @@ static int	create_file(t_red *red, int fd)
 	}
 	else
 	{
+		
 		if (red->type == APPAND)
 			fd = open(red->file_name, O_APPEND | O_CREAT | O_WRONLY, 0666);
 		else
@@ -73,6 +75,8 @@ static int	create_file(t_red *red, int fd)
 	return (1);
 }
 
+// 1minishell:~$ < a
+// minishell: (null): command not found
 int	check_redirections(t_red *red)
 {
 	int	fd;
@@ -110,15 +114,14 @@ static void	execute(t_cmd *cmd, t_env **env, int fd[])
 	}
 	if (exec_builtins(cmd_tab, cmd->red, *env) || !check_redirections(cmd->red))
 		exit(g_exit_status);
-	// if (!cmd_lst || !cmd_lst[0])
-	// 	exit(0);
+	if (!cmd_tab || !cmd_tab[0])
+		exit(0);
 	str = cmd_tab[0];
-	cmd_tab[0] = get_absolute_path(str);
+	cmd_tab[0] = get_absolute_path(str, *env);
 	execve(cmd_tab[0], cmd_tab, enironment);
 	printf("minishell: %s: command not found\n", str);
 	exit(1);
 }
-
 
 void	exec_multi_cmd(t_cmd *cmd_list, t_env **env)
 {
@@ -131,11 +134,15 @@ void	exec_multi_cmd(t_cmd *cmd_list, t_env **env)
 	{
 		if (cmd_list->next)
 			pipe(fd);
+		signal(SIGINT, SIG_IGN);
 		pid = fork();
 		if (pid < 0)
 			return (perror("fork"));
 		if (pid == 0)
+		{
+			signal(SIGINT, cmd_handler);
 			execute(cmd_list, env, fd);
+		}
 		if (cmd_list->next)
 		{
 			dup2(fd[0], 0);
@@ -152,22 +159,27 @@ void	exec_multi_cmd(t_cmd *cmd_list, t_env **env)
 void	exec_all(t_cmd *cmd, t_env **env)
 {
 	int status;
+	int flag;
 
 	status = 0;
 	if(cmd && !cmd->next && exec_builtins(cmd->content, cmd->red, *env))
 		return ;
 	exec_multi_cmd(cmd, env);
-		wait(&status);
-	if (WIFSIGNALED(status))
+	// signal(SIGINT, handler);
+	flag = 0;
+	while (flag != -1)
 	{
-		 if (WTERMSIG(status) != 13)
-			g_exit_status = 128 + WTERMSIG(status);
-		if (WTERMSIG(status) == SIGQUIT)
-			printf(" Quit\n");
-	}
-	 else
-	 	g_exit_status = WEXITSTATUS(status);
-	cmd = cmd->next;
-	
+		flag = waitpid (-1, &status, 0);
+		if (WIFEXITED(status) && flag != -1)
+			g_exit_status = WEXITSTATUS (status);
+		else if (WIFSIGNALED (status) && flag != -1)
+		{
+			if (WTERMSIG(status) + 128 == 131)
+			{
+				g_exit_status = 131;
+				printf ("Quit : 3\n");
+			}
+		}
+	}	
 }
 /// wait ou handle exit satuts execution de builtins

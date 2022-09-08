@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 04:19:30 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/04 15:45:07 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:38:17 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,17 @@ int	ft_pwd(char **content, t_env *envp)
 	}
 	return (0);
 }
+// void	pwd_cmd(char **cmd)
+// {
+// 	char	str[1024];
+
+// 	if (!cmd || !*cmd || ft_strncmp(cmd[0], "pwd", 255))
+// 		return ;
+// 	if (getcwd(str, 1024))
+// 	{
+// 		ft_putstr_fd(str, 1);
+// 		ft_putstr_fd("\n", 1);
+// 	}
+// 	else
+// 		perror("pwd:");
+// }

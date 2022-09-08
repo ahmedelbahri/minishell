@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:17:37 by waelhamd          #+#    #+#             */
-/*   Updated: 2022/09/04 22:14:01 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:30:03 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	exec_builtins(char **cmd, t_red *red, t_env *env)
 	if(check_redirections(red))
 	{
 	if (!ft_strncmp(cmd[0], "cd", 3))
-		ft_cd(cmd);
+		ft_cd(cmd, env);
 	else if (!ft_strncmp(cmd[0], "pwd", 4))
 		ft_pwd(cmd, env);
 	else if (!ft_strncmp(cmd[0], "echo", 5))

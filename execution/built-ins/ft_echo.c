@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 22:25:19 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/02 04:06:17 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:55:19 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ int	ft_echo(char **content)
 
 	i = 1;
 	yes = 0;
-	if (ft_ncmp(content[i]) == 0)
+	while (ft_ncmp(content[i]) == 0)
 	{
 		i++;
 		yes++;
+		if (content[i] && !ft_strcmp(content[i], " "))
+			i++;
 	}
 	while (content[i])
 	{

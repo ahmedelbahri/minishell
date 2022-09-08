@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_between_include.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:16:43 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/02 04:06:10 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:59:41 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_ncmp(char *s1)
 	i = 1;
 	if (s1 == NULL)
 		return (1);
-	if (s1[0] != '-')
+	if (s1[0] != '-' || ft_strlen(s1) == 1)
 		return (1);
 	while (s1[i])
 	{

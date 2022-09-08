@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 22:51:30 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/08 01:27:13 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:19:14 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	herdoc_handler(int sig)
+void	cmd_handler(int sig)
 {
 	if (sig != SIGINT)
 		return ;
@@ -66,7 +66,7 @@ static int	ft_read_herdoc(int fd[2], t_list *tmp, t_env *env)
 {
 	char	*s;
 
-	signal(SIGINT, herdoc_handler);
+	signal(SIGINT, cmd_handler);
 	while (1)
 	{
 		s = readline("herdoc>");

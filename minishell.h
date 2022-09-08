@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 17:06:52 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/08 00:39:32 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:15:43 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		ft_exit(char **content, t_env *env);
 //./execution/built-ins/ft_pwd.c
 int		ft_pwd(char **content, t_env *envp);
 void	ft_export(char **cmd, t_env **env);
-void	ft_cd(char **cmd);
+void	ft_cd(char **cmd, t_env *env);
 void	ft_unset(char **cmd, t_env *env);
 int		ft_echo(char **content);
 //./execution/ft_execute.c
@@ -84,6 +84,7 @@ char	**lst_to_array(t_env *env);
 bool	is_builtins(char *cmd);
 int		exec_builtins(char **cmd, t_red *red, t_env *env);
 int		check_redirections(t_red *red);
+char	 *ft_getenv(t_env *envirement, char *name);
 //....................../include/.......................
 //./include/cmd_include.c
 t_cmd	*ft_cmdlast(t_cmd *cmd);
@@ -143,6 +144,7 @@ void	ft_is_redirections(t_list **arg);
 //./lexing/double_quoting.c
 int		double_quoting(char *buff, t_lex *lex, t_list **arg);
 //./lexing/ft_herdoc.c
+void	cmd_handler(int sig);
 void	ft_herdoc(t_list **arg, t_env *env);
 //./lexing/single_quoting.c
 int		lex(char *buff, t_list **arg, t_env *env);
