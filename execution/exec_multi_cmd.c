@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 14:29:38 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/08 17:15:37 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/09 00:53:03 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,10 @@ static int	create_file(t_red *red, int fd)
 {
 	if (red->type == HERDOC)
 	{
-		// dup2(red->fd, 0);
-		// close(red->fd);
-		return (1);
+		dup2(red->pipe_0, 0);
+		close(red->pipe_0);
 	}
-	if (red->type == INFILE)
+	else if (red->type == INFILE)
 	{
 		fd = open(red->file_name, O_RDONLY);
 		if (fd < 0)
@@ -62,7 +61,6 @@ static int	create_file(t_red *red, int fd)
 	}
 	else
 	{
-		
 		if (red->type == APPAND)
 			fd = open(red->file_name, O_APPEND | O_CREAT | O_WRONLY, 0666);
 		else

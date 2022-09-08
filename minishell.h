@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 17:06:52 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/08 17:15:43 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/08 21:58:01 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include "libft/libft.h"
 # include <dirent.h>
 # include <stdbool.h>
+#include<paths.h>
 
 int	g_exit_status;
 

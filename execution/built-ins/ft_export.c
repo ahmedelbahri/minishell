@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:13:07 by waelhamd          #+#    #+#             */
-/*   Updated: 2022/09/08 16:47:23 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/08 22:05:43 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ static void	print_envirenmet(t_env *env)
 	tmp = env;
 	while (tmp != NULL)
 	{
-		printf("declare -x %s", tmp->name);
-		if (tmp->content)
-			printf("=\"%s\"", tmp->content);
-		printf("\n");
+		if (tmp->name && ft_strcmp(tmp->name, "SPATH"))
+		{
+			printf("declare -x %s", tmp->name);
+			if (tmp->content)
+				printf("=\"%s\"", tmp->content);
+			printf("\n");
+		}
 		tmp = tmp->next;
 	}
 }

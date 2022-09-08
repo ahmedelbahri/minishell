@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:08:59 by waelhamd          #+#    #+#             */
-/*   Updated: 2022/09/08 17:34:41 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/09 00:27:03 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char *ft_getenv(t_env *envirement, char *name)
 	return (NULL);
 }
 
+
+
 static int argument_dir(char *path, t_env *env)
 {
 	char *str;
@@ -37,14 +39,19 @@ static int argument_dir(char *path, t_env *env)
 	{
 		str = ft_getenv(env, "OLDPWD");
 		if(!str)
+		{
+			g_exit_status = 1;
 			printf("cd: OLDPWD not set\n");
-		i = chdir(str);
-		printf("%s\n", str);
-		 free(str);
-		return(i);
+		}
+		else
+			return(i = chdir(str), printf("%s\n", str), free(str), i);
 	}
-	else
-		return(chdir(path));
+	else if (!getcwd(NULL, 0))
+	{
+		perror("cd: error retrieving current directory: \
+				getcwd: cannot access parent directories");
+		return (i = chdir(path), free(path), i);
+	}
 	return (-1);
 }
 
@@ -52,7 +59,7 @@ static int argument_dir(char *path, t_env *env)
 char	*get_pwd_env(t_env *list)
 {
 	t_env	*tmp;
-	char		*pwd;
+	char	*pwd;
 
 	tmp = list;
 	pwd = NULL;
@@ -67,21 +74,26 @@ char	*get_pwd_env(t_env *list)
 
 int	update_pwd_env(t_env **env)
 {
-	char		*current;
-	char		*old;
+	char	*current;
+	char	*old;
 	t_env	*tmp;
 
 	tmp = *env;
-	current = getcwd (NULL, 0);
+	current = getcwd(NULL, 0);
 	if (!current)
 		return (-1);
-	old = get_pwd_env (*env);
+	old = get_pwd_env(*env);
 	while (tmp)
 	{
-		if (!ft_strcmp (tmp->name, "PWD"))
-			tmp->content = current;
-		else if (!ft_strcmp (tmp->name, "OLDPWD"))
-			tmp->content = old;
+		if (!ft_strcmp (tmp->name, "PWD") || !ft_strcmp (tmp->name, "OLDPWD"))
+		{
+			free(tmp->content);
+			tmp->content = NULL;
+			if(!ft_strcmp (tmp->name, "PWD"))
+				tmp->content = current;
+			else
+				tmp->content = old;
+		}
 		tmp = tmp->next;
 	}
 	return (0);
@@ -92,6 +104,7 @@ void	ft_cd(char **cmd, t_env *env)
 	int i;
 	char *path;
 
+	i = -1;
 	if (!cmd[1] || !ft_strncmp(cmd[1], "~",1))
 	{
 		path = ft_getenv(env, "HOME");
@@ -100,15 +113,18 @@ void	ft_cd(char **cmd, t_env *env)
 			 g_exit_status = 1;
 			printf("cd: HOME not set\n");
 		}
-		i = chdir(path);
-		// free(path); 
+		else
+		{
+			i = chdir(path);
+			free(path); 
+		}	
 	}
 	else
 		i = argument_dir(cmd[1], env);
 	if(i < 0)
 	{
-		 g_exit_status = 1;
+		g_exit_status = 1;
 		perror("cd");
 	}
-	update_pwd_env(&env);
+	//update_pwd_env(&env);
 }

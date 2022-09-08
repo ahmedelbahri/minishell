@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:42:55 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/07 04:18:43 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/09 00:47:30 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void	check_line(char *buff, t_env *env)
 	if (buff[0])
 	{
 		add_history(buff);
-		if (lex(buff, &arg, env) || only_space(arg))
+		if (lex(buff, &arg, env) || only_space(arg))//add exit status of syntax error here.........
 			ft_lstclear(&arg, free);
 		else
 		{
@@ -88,8 +88,6 @@ static void	check_line(char *buff, t_env *env)
 			cmd = split_pipe(arg);
 			redirections_parser(cmd);
 			//g_global exit_status=0;
-			if (cmd->content[0] && !ft_strcmp(cmd->content[0], "./minishell"))
-				signal(SIGINT, SIG_IGN);
 			exec_all(cmd, &env);
 			signal(SIGINT, handler);
 			// ft_print(arg);////////////////////delete
@@ -132,7 +130,7 @@ int	main(int ac, char **av, char **nv)
 		}
 		check_line(buff, env);
 		free(buff);
-		// system("leaks minishell");////////////delete
+		   //system("leaks minishell");////////////delete
 	}
 	return (0);
 }

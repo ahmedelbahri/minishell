@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 22:33:27 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/05 18:53:39 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/08 22:22:26 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	print_env(t_env *env)
 {
 	while (env != NULL)
 	{
-		if(env->content)
+		if(env->content && env->name && ft_strcmp(env->name, "SPATH"))
 		{
 			printf("%s", env->name);
 			printf("=");
@@ -73,9 +73,9 @@ t_env	*ft_env(char **nv)
 	int		start;
 	t_env	*env;
 
-	i = 0;
+	i = -1;
 	env = NULL;
-	while (nv[i])
+	while (nv[++i])
 	{
 		start = ft_start(nv[i]);
 		ft_envadd_back(&env, ft_envnew(ft_substr_lex(nv[i], start,
@@ -83,7 +83,15 @@ t_env	*ft_env(char **nv)
 		if (ft_strcmp(ft_envlast(env)->name, "SHLVL") == 0
             && ft_envlast(env)->content[0] - 48 < 9)
             ft_envlast(env)->content[0]++;
-		i++;
 	}
+	if(!env)
+	{
+		ft_envadd_back(&env, ft_envnew(getcwd(NULL, 0), ft_strdup("PWD")));
+		ft_envadd_back(&env, ft_envnew(ft_strdup("1"), ft_strdup("SHLVL")));
+		ft_envadd_back(&env, ft_envnew(ft_strdup("/usr/bin/env"),
+				ft_strdup("_")));
+	}
+	ft_envadd_back(&env, ft_envnew(ft_strdup(_PATH_STDPATH),
+			ft_strdup("SPATH")));
 	return (env);
 }
