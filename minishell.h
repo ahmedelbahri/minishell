@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 17:06:52 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/08 21:58:01 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/09 17:57:37 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		ft_echo(char **content);
 //./execution/ft_execute.c
 void	exec_multi_cmd(t_cmd *cmd_list, t_env **env);
 void	exec_all(t_cmd *cmd, t_env **env);
-char	**lst_to_array(t_env *env);
+char	**lst_to_array(t_env *env, char *save);
 bool	is_builtins(char *cmd);
 int		exec_builtins(char **cmd, t_red *red, t_env *env);
 int		check_redirections(t_red *red);

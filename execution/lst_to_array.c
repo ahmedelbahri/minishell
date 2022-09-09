@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:03:51 by waelhamd          #+#    #+#             */
-/*   Updated: 2022/09/02 08:06:51 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/09 17:55:16 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,24 @@ static int	list_size(t_env *lst)
 	return (i);
 }
 
-char	**lst_to_array(t_env *env)
+char	**lst_to_array(t_env *env, char *save)
 {
-	t_env	*tmp = env;
+	t_env	*tmp;
 	char	**array;
 	int		i;
 
+	tmp = env;
 	i = list_size(tmp);
 	array = (char **)malloc(sizeof(char *) * i + 1);
 	if (!array)
 		return (NULL);
-	tmp = env;
 	i = 0;
 	while (tmp) 
 	{
-		array[i] = ft_strjoin(tmp->name, ft_strjoin("=", tmp->content));
+		save = ft_strjoin("=", tmp->content);
+		array[i] = ft_strjoin(tmp->name, save );
+		free(save);
+		save = NULL;
 		tmp = tmp->next;
 		i++;
 	}

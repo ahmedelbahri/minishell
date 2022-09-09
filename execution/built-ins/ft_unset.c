@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 18:30:38 by waelhamd          #+#    #+#             */
-/*   Updated: 2022/09/07 22:24:55 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/09 20:29:18 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ static int	validator(char *line)
 	int	i;
 
 	i = 0;
-	if(!ft_isalpha(line[i]) && line[0] != '_')
+	if(!ft_isalpha(line[i]) && line[i] != '_')
 	{
 		g_exit_status = 1;
 		return (printf("unset: '%s': not a valid identifier\n", line), 0);
 	}
 	while(line[i])
 	{
-		if(!ft_isalnum(line[i]))
+		if(!ft_isalnum(line[i]) && line[i] != '_')
 		{
 			g_exit_status = 1;
 			return (printf("unset: '%s': not a valid identifier\n", line), 0);
@@ -44,7 +44,8 @@ static void	free_variable(t_env *save)
 static void	del_variable(char *name, t_env *tmp_lst)
 {
 	t_env *save;
-	while (tmp_lst)
+
+	while (tmp_lst && tmp_lst->next)
 	{
 		if (!ft_strcmp(name, tmp_lst->next->name))
 		{
@@ -60,6 +61,23 @@ static void	del_variable(char *name, t_env *tmp_lst)
 	}
 }
 
+// void	init_spath(t_env *env)
+// {
+// 	t_env *tmp;
+
+// 	tmp = env;
+// 	while(tmp)
+// 	{
+// 		if(!ft_strcmp(tmp->name, "SPATH"))
+// 		{
+// 			free(env->content);
+// 			env->content = NULL;
+// 			break;
+// 		}
+// 		tmp = tmp->next;
+// 	}
+// }
+
 void ft_unset(char **cmd, t_env *env)
 {
 	int i;
@@ -68,6 +86,8 @@ void ft_unset(char **cmd, t_env *env)
 	i = 1;
 	while (cmd[i])
 	{
+		if(!ft_strcmp(cmd[i], "PATH"))
+			del_variable("SPATH", env);
 		if (!validator(cmd[i]))
 			return ;
 		tmp_lst = env;
@@ -76,7 +96,7 @@ void ft_unset(char **cmd, t_env *env)
 			env = env->next;
 			free_variable(tmp_lst);	
 		}
-		else if(!ft_strcmp(cmd[i], tmp_lst->name))
+		else
 			del_variable(cmd[i], tmp_lst);
 		i++;
 	}

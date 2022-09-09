@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:42:55 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/09 00:47:30 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/09 19:35:19 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int	main(int ac, char **av, char **nv)
 		}
 		check_line(buff, env);
 		free(buff);
-		   //system("leaks minishell");////////////delete
+		//system("leaks minishell");////////////delete
 	}
 	return (0);
 }

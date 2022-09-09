@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:13:07 by waelhamd          #+#    #+#             */
-/*   Updated: 2022/09/08 22:05:43 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/10 00:17:31 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,44 +48,51 @@ static int	validator(char	*name)
 	return (i);
 }
 
-static void	add_or_change(char **tab, char s, t_env **envirenemt)
+
+
+static int	add_or_change(char **tab, char s, t_env **envirenemt)
 {
 	t_env *env;
+	char *save;
 
 	env = *envirenemt;
+	save = NULL;
 	while(env)
 	{
 		if(!ft_strncmp(env->name, tab[0], ft_strlen(env->name)))
 		{
 			if(tab[1] || env->content)
 			{
-				if(s == '+' && env->content)
+				save = env->content;
+				if(s == '+' && save)
+				{
 					env->content = ft_strjoin(env->content, tab[1]);
+					free(tab[1]);
+				}
 				else
 					env->content = tab[1];
-				// free(tab[1]);
-				// free(tab[0]);
-				return ;
 			}
+			return(free(save),free(tab[0]), 0);
 		}
 		env = env->next;
 	}
-	ft_envadd_back(envirenemt, ft_envnew(tab[1], tab[0]));
-	// free(tab[1]);
-	// free(tab[0]);
+	return(ft_envadd_back(envirenemt, ft_envnew(tab[1], tab[0])), 0);
 }
 
-static int	export_element(char *name, t_env **env)
+static void	export_element(char *name, t_env **env)
 {
 	int i;
 	char *tab[2];
 
 	i = validator(name);
+	if(!ft_strncmp(name, "PATH", 4))
+		ft_envadd_back(env, ft_envnew(ft_strdup(&name[4]), \
+				ft_strdup("SPATH")));
 	if(i == 0)
 	{
 		g_exit_status = 1;
 		printf("minishell: export: '%s': not a valid identifier\n", name);
-		return (0);
+		return ;
 	}
 	tab[0] = ft_substr(name, 0, i);
 	if (name[i] == 0)
@@ -95,7 +102,6 @@ static int	export_element(char *name, t_env **env)
 	else
 		tab[1] = ft_substr(name, i + 1, ft_strlen(name) - i - 1);
 	add_or_change(tab, name[i], env);
-	return(0);
 }
 
 

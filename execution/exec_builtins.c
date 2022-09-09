@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:17:37 by waelhamd          #+#    #+#             */
-/*   Updated: 2022/09/06 15:30:03 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/09 06:16:27 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ int	exec_builtins(char **cmd, t_red *red, t_env *env)
 	else if (!ft_strncmp(cmd[0], "echo", 5))
 		ft_echo(cmd);
 	else if (!ft_strncmp(cmd[0], "env", 4))
-		print_env(env);
+		ft_env_cmd(env, cmd);
 	else if (!ft_strncmp(cmd[0], "export", 7))
 		ft_export(cmd, &env);
 	else if (!ft_strncmp(cmd[0], "unset", 6))
 		ft_unset(cmd, env);
-		// else if (!ft_strncmp(cmd[0], "exit", 6))
-	// 	exit_built(cmd);
+	else if (!ft_strncmp(cmd[0], "exit", 6))
+		ft_exit(cmd, env);
 	 }
 	 dup2(fd[0], 0);
 	 dup2(fd[1], 1);

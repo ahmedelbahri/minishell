@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 15:44:27 by ahel-bah          #+#    #+#             */
-/*   Updated: 2021/11/22 17:50:15 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/10 00:22:57 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	**ft_split(char const *s, char c)
 	char	**ml;
 
 	if (!s)
-		return (0);
+		return (NULL);
 	ml = malloc(sizeof(char *) * (ft_countw(s, c) + 1));
 	if (ml == 0)
 		return (0);

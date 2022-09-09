@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:08:59 by waelhamd          #+#    #+#             */
-/*   Updated: 2022/09/09 00:27:03 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/09 01:34:46 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,19 @@ char *ft_getenv(t_env *envirement, char *name)
 }
 
 
-
 static int argument_dir(char *path, t_env *env)
 {
 	char *str;
-	int i;
+	char *current;
 
-	if(!ft_strncmp(path, "-", 1))
+	current = getcwd(NULL, 0);
+	if (!current)
+	{
+		perror("cd: error retrieving current directory: \
+				getcwd: cannot access parent directories");
+		return (chdir(path));
+	}
+	else if(!ft_strncmp(path, "-", 1))
 	{
 		str = ft_getenv(env, "OLDPWD");
 		if(!str)
@@ -44,14 +50,10 @@ static int argument_dir(char *path, t_env *env)
 			printf("cd: OLDPWD not set\n");
 		}
 		else
-			return(i = chdir(str), printf("%s\n", str), free(str), i);
+			return(free(current), printf("%s\n", str), chdir(str));
 	}
-	else if (!getcwd(NULL, 0))
-	{
-		perror("cd: error retrieving current directory: \
-				getcwd: cannot access parent directories");
-		return (i = chdir(path), free(path), i);
-	}
+	else
+		return (free(current), chdir(path));
 	return (-1);
 }
 
@@ -114,10 +116,7 @@ void	ft_cd(char **cmd, t_env *env)
 			printf("cd: HOME not set\n");
 		}
 		else
-		{
 			i = chdir(path);
-			free(path); 
-		}	
 	}
 	else
 		i = argument_dir(cmd[1], env);
@@ -126,5 +125,5 @@ void	ft_cd(char **cmd, t_env *env)
 		g_exit_status = 1;
 		perror("cd");
 	}
-	//update_pwd_env(&env);
+	update_pwd_env(&env);
 }

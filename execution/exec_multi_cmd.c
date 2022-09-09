@@ -6,7 +6,7 @@
 /*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 14:29:38 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/09 00:53:03 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/09 23:50:55 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,33 @@
 int	check_redirections(t_red *red);
 static int	create_file(t_red *red, int fd);
 
-char	*get_absolute_path(char *cmd, t_env *env)
+char	*get_absolute_path(char *cmd, t_env *env, char *s1, char *s2)
 {
 	char *path;
 	char **split_path;
 	char *join;
-	int i = 0;
 
-	if(access(cmd, X_OK) == 0)
-		return(cmd);
-	path = ft_getenv(env, "PATH");
-	split_path = ft_split(path, ':');
-	while(split_path[i] != NULL)
+	int i = -1;
+	if(access(cmd, (F_OK | X_OK)) == 0)
+			s1 = cmd;
+	split_path = ft_split(ft_getenv(env, "SPATH"), ':');
+	if(!split_path)
+		return (NULL);
+	while(split_path[++i] != NULL && *split_path)
 	{
 		join = ft_strjoin(split_path[i], "/");
 		path = ft_strjoin(join, cmd);
 		free(join);
 		if(access(path, X_OK) == 0)
-		{
-			//free split_path defenitly
-			return(path);
-		}
-		i++;
+				s2 = path;
+		else
+			free(path);
 	}
-	//free split_path (possible lost)
+	free_dub(split_path);
+	if((s1 && s2) || s2)
+		return(s2);
+	else if(s1)
+		return(s1);
 	return (NULL);
 }
 
@@ -75,11 +78,13 @@ static int	create_file(t_red *red, int fd)
 
 // 1minishell:~$ < a
 // minishell: (null): command not found
-int	check_redirections(t_red *red)
+int	check_redirections(t_red *redirection)
 {
 	int	fd;
+	t_red *red;
 
 	fd = 0;
+	red = redirection;
 	while (red)
 	{
 		if (create_file(red, fd) == 0)
@@ -103,7 +108,7 @@ static void	execute(t_cmd *cmd, t_env **env, int fd[])
 
 	tmp = (*env);
 	cmd_tab = cmd->content;
-	enironment = lst_to_array(tmp);
+	enironment = lst_to_array(tmp, NULL);
 	if (cmd->next)
 	{
 		dup2(fd[1], 1);
@@ -115,7 +120,7 @@ static void	execute(t_cmd *cmd, t_env **env, int fd[])
 	if (!cmd_tab || !cmd_tab[0])
 		exit(0);
 	str = cmd_tab[0];
-	cmd_tab[0] = get_absolute_path(str, *env);
+	cmd_tab[0] = get_absolute_path(str, *env, NULL, NULL);
 	execve(cmd_tab[0], cmd_tab, enironment);
 	printf("minishell: %s: command not found\n", str);
 	exit(1);

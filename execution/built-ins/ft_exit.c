@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:54:50 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/02 04:23:28 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/09 06:19:19 by waelhamd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ static int	exit_with_arg(char **content)
 	int	i;
 
 	i = 0;
-	while (i < (int)strlen(content[1]))
+	while (i < (int)ft_strlen(content[1]))
 	{
 		if (ft_isalpha(content[1][i]))
 		{
 			printf("Error:\n exit: %s: numeric argument required\n"
 				, content[1]);
-			break ;
+			return (255);
 		}
 		i++;
 	}
