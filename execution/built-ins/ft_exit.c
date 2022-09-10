@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:54:50 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/09 06:19:19 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/10 02:21:37 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ int	ft_exit(char **content, t_env *env)
 	ft_free_env(env);
 	if (ft_dubstrlen(content) == 2)
 		exit(exit_with_arg(content));
-	exit(1);
+	exit(0);
 	return (0);
 }

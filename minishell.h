@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 17:06:52 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/09 17:57:37 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/10 04:18:31 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define OUTFILE 11
 # define HERDOC 12
 # define APPAND 13
+# define PATH "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki"
 
 # include <stdio.h>
 # include <unistd.h>
@@ -29,7 +30,7 @@
 # include "libft/libft.h"
 # include <dirent.h>
 # include <stdbool.h>
-#include<paths.h>
+# include <paths.h>
 
 int	g_exit_status;
 

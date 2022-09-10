@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 22:33:27 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/09 06:14:04 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/10 02:09:55 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_env	*ft_env(char **nv)
 		ft_envadd_back(&env, ft_envnew(ft_strdup("/usr/bin/env"),
 				ft_strdup("_")));
 	}
-	ft_envadd_back(&env, ft_envnew(ft_strdup(_PATH_STDPATH),
+	ft_envadd_back(&env, ft_envnew(ft_strdup(PATH),
 			ft_strdup("SPATH")));
 	return (env);
 }

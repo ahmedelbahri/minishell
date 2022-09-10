@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 22:51:30 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/08 17:19:14 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/10 18:07:40 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static int	ft_read_herdoc(int fd[2], t_list *tmp, t_env *env)
 {
 	char	*s;
 
+	concatenate(&tmp);
 	signal(SIGINT, cmd_handler);
 	while (1)
 	{
@@ -76,7 +77,7 @@ static int	ft_read_herdoc(int fd[2], t_list *tmp, t_env *env)
 				free(s);
 			break ;
 		}
-		if (count_dollars(s))
+		if (count_dollars(s) && tmp->next->quoted == 0)
 			s = herdoc_dollar(s, env);
 		ft_putstr_fd(s, fd[1]);
 		ft_putstr_fd("\n", fd[1]);

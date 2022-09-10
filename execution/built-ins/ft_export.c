@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:13:07 by waelhamd          #+#    #+#             */
-/*   Updated: 2022/09/10 00:17:31 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/10 17:49:53 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,21 +79,10 @@ static int	add_or_change(char **tab, char s, t_env **envirenemt)
 	return(ft_envadd_back(envirenemt, ft_envnew(tab[1], tab[0])), 0);
 }
 
-static void	export_element(char *name, t_env **env)
+static int	export_element(char *name, t_env **env, int i)
 {
-	int i;
 	char *tab[2];
 
-	i = validator(name);
-	if(!ft_strncmp(name, "PATH", 4))
-		ft_envadd_back(env, ft_envnew(ft_strdup(&name[4]), \
-				ft_strdup("SPATH")));
-	if(i == 0)
-	{
-		g_exit_status = 1;
-		printf("minishell: export: '%s': not a valid identifier\n", name);
-		return ;
-	}
 	tab[0] = ft_substr(name, 0, i);
 	if (name[i] == 0)
 		tab[1] = NULL;
@@ -101,20 +90,40 @@ static void	export_element(char *name, t_env **env)
 		tab[1] = ft_substr(name, i + 2, ft_strlen(name) - i - 2);
 	else
 		tab[1] = ft_substr(name, i + 1, ft_strlen(name) - i - 1);
+	if (ft_getenv((*env), tab[0]) && name[i] == '\0')
+		return (free(tab[0]), free(tab[1]), 0);
 	add_or_change(tab, name[i], env);
+	if(!ft_strcmp(tab[0], "PATH") && tab[1])
+	{
+		tab[0] = ft_strdup("SPATH");
+		if (ft_getenv((*env), "PATH"))
+			tab[1] = ft_strdup(ft_getenv((*env), "PATH"));
+		else
+			tab[1] = NULL;
+		add_or_change(tab, name[i], env);
+	}
+	return (0);
 }
 
 
 void	ft_export(char **cmd, t_env **env)
 {
 	int i;
+	int val;
 
 	i = 1;
 	if(!cmd[1])
 		return(print_envirenmet(*env));
 	while(cmd[i])
 	{
-		export_element(cmd[i], env);
+		val = validator(cmd[i]);
+		if(val == 0)
+		{
+			g_exit_status = 1;
+			printf("minishell: export: '%s': not a valid identifier\n", cmd[i]);
+			return ;
+		}
+		export_element(cmd[i], env, val);
 		i++;
 	}
 }
