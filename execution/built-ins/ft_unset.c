@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 18:30:38 by waelhamd          #+#    #+#             */
-/*   Updated: 2022/09/09 20:29:18 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/10 23:52:00 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ static int	validator(char *line)
 	int	i;
 
 	i = 0;
-	if(!ft_isalpha(line[i]) && line[i] != '_')
+	if (!ft_isalpha(line[i]) && line[i] != '_')
 	{
 		g_exit_status = 1;
 		return (printf("unset: '%s': not a valid identifier\n", line), 0);
 	}
-	while(line[i])
+	while (line[i])
 	{
-		if(!ft_isalnum(line[i]) && line[i] != '_')
+		if (!ft_isalnum(line[i]) && line[i] != '_')
 		{
 			g_exit_status = 1;
 			return (printf("unset: '%s': not a valid identifier\n", line), 0);
@@ -43,14 +43,14 @@ static void	free_variable(t_env *save)
 
 static void	del_variable(char *name, t_env *tmp_lst)
 {
-	t_env *save;
+	t_env	*save;
 
 	while (tmp_lst && tmp_lst->next)
 	{
 		if (!ft_strcmp(name, tmp_lst->next->name))
 		{
 			save = tmp_lst->next;
-			if(tmp_lst->next->next == NULL)
+			if (tmp_lst->next->next == NULL)
 				tmp_lst->next = NULL;
 			else
 				tmp_lst->next = tmp_lst->next->next;
@@ -61,40 +61,23 @@ static void	del_variable(char *name, t_env *tmp_lst)
 	}
 }
 
-// void	init_spath(t_env *env)
-// {
-// 	t_env *tmp;
-
-// 	tmp = env;
-// 	while(tmp)
-// 	{
-// 		if(!ft_strcmp(tmp->name, "SPATH"))
-// 		{
-// 			free(env->content);
-// 			env->content = NULL;
-// 			break;
-// 		}
-// 		tmp = tmp->next;
-// 	}
-// }
-
-void ft_unset(char **cmd, t_env *env)
+void	ft_unset(char **cmd, t_env *env)
 {
-	int i;
-	t_env *tmp_lst;
+	int		i;
+	t_env	*tmp_lst;
 
 	i = 1;
 	while (cmd[i])
 	{
-		if(!ft_strcmp(cmd[i], "PATH"))
+		if (!ft_strcmp(cmd[i], "PATH"))
 			del_variable("SPATH", env);
 		if (!validator(cmd[i]))
 			return ;
 		tmp_lst = env;
-		if(!ft_strcmp(cmd[i], tmp_lst->name))
+		if (!ft_strcmp(cmd[i], tmp_lst->name))
 		{
 			env = env->next;
-			free_variable(tmp_lst);	
+			free_variable(tmp_lst);
 		}
 		else
 			del_variable(cmd[i], tmp_lst);

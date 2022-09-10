@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 19:05:27 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/02 03:26:07 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/10 18:48:37 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ int	double_quoting(char *buff, t_lex *lex, t_list **arg)
 		lex->i++;
 	}
 	printf("Error:\n syntax error: uninterpreted double quote.\n");
+	g_exit_status = 258;
 	return (258);
 }

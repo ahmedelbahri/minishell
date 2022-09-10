@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 18:44:27 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/08 00:39:57 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/10 20:40:18 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,24 @@ void	ft_expend(t_list **arg, t_env *env, int d)
 	ft_replace(arg, env);
 }
 
+static void	ft_expand_exit_status(t_list **arg)
+{
+	if (ft_strlen((*arg)->content) == 2 && (*arg)->quoted != 1
+		&& (*arg)->content[0] == '$' && (*arg)->content[1] == '?')
+	{
+		free((*arg)->content);
+		(*arg)->content = ft_strdup(ft_itoa(g_exit_status));
+	}
+	else if ((*arg)->quoted != 1 && (*arg)->content[0] == '$'
+		&& (*arg)->content[1])
+	{
+		ft_lstinsert(arg, ft_lstnew(
+				ft_strdup(ft_itoa(g_exit_status)), (*arg)->quoted));
+		free((*arg)->content);
+		(*arg)->content = ft_strdup("0");
+	}
+}
+
 void	dollar(t_list **arg, t_env *env)
 {
 	int		i;
@@ -70,6 +88,7 @@ void	dollar(t_list **arg, t_env *env)
 
 	i = 0;
 	sequenced_dollars = 0;
+	ft_expand_exit_status(arg);
 	while ((*arg)->content[i] && (*arg)->content[i] != '$')
 		i++;
 	if (i > 0)
@@ -84,22 +103,6 @@ void	dollar(t_list **arg, t_env *env)
 		sequenced_dollars++;
 	if ((*arg)->content[0] == '$')
 		ft_expend(arg, env, sequenced_dollars);
-}
-
-int	count_dollars(char *arg)
-{
-	int	i;
-	int	dollars;
-
-	i = 0;
-	dollars = 0;
-	while (arg[i])
-	{
-		if (arg[i] == '$')
-			dollars++;
-		i++;
-	}
-	return (dollars);
 }
 
 void	clean_line(t_list **arg, t_env *env)
@@ -120,7 +123,7 @@ void	clean_line(t_list **arg, t_env *env)
 				&& (*arg)->next && (*arg)->next->quoted == 0
 				&& ft_strcmp((*arg)->next->content, " ") == 0))
 			ft_dellst(arg, (*arg)->next);
-		if ((*arg) && (*arg)->quoted != 1 && count_dollars((*arg)->content))
+		if ((*arg) && (*arg)->quoted != 1 && ft_strchr((*arg)->content, '$'))
 			dollar(arg, env);
 		(*arg) = (*arg)->next;
 	}

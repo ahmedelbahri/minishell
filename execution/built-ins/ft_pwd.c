@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 04:19:30 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/06 15:38:17 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/10 23:50:11 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,27 @@
 
 int	ft_pwd(char **content, t_env *envp)
 {
-	t_env *env;
+	t_env	*env;
+	char	*pwd;
 
 	env = envp;
+	pwd = NULL;
 	if (ft_dubstrlen(content) >= 2)
 	{
 		g_exit_status = 1;
 		ft_error("Error:\n pwd: too many arguments\n");
 		return (1);
 	}
-	while (env)
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
 	{
-		if (ft_strcmp(env->name, "PWD") == 0)
-		{
-			printf("%s\n", env->content);
-			break ;
-		}
-		env = env->next;
+		pwd = ft_getenv(env, "PWD");
+		printf("%s\n", pwd);
+	}
+	else
+	{
+		printf("%s\n", pwd);
+		free(pwd);
 	}
 	return (0);
 }
-// void	pwd_cmd(char **cmd)
-// {
-// 	char	str[1024];
-
-// 	if (!cmd || !*cmd || ft_strncmp(cmd[0], "pwd", 255))
-// 		return ;
-// 	if (getcwd(str, 1024))
-// 	{
-// 		ft_putstr_fd(str, 1);
-// 		ft_putstr_fd("\n", 1);
-// 	}
-// 	else
-// 		perror("pwd:");
-// }

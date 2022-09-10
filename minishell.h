@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 17:06:52 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/10 04:18:31 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/10 23:52:54 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ void	ft_export(char **cmd, t_env **env);
 void	ft_cd(char **cmd, t_env *env);
 void	ft_unset(char **cmd, t_env *env);
 int		ft_echo(char **content);
+//./execution/check_redirections.c
+int		check_redirections(t_red *red);
+int		create_file(t_red *red, int fd);
 //./execution/ft_execute.c
 void	exec_multi_cmd(t_cmd *cmd_list, t_env **env);
 void	exec_all(t_cmd *cmd, t_env **env);
@@ -86,7 +89,7 @@ char	**lst_to_array(t_env *env, char *save);
 bool	is_builtins(char *cmd);
 int		exec_builtins(char **cmd, t_red *red, t_env *env);
 int		check_redirections(t_red *red);
-char	 *ft_getenv(t_env *envirement, char *name);
+char	*ft_getenv(t_env *envirement, char *name);
 //....................../include/.......................
 //./include/cmd_include.c
 t_cmd	*ft_cmdlast(t_cmd *cmd);
@@ -134,7 +137,6 @@ void	ft_redadd_back(t_red **red, t_red *new);
 void	ft_replace(t_list **arg, t_env *env);
 void	ft_expend(t_list **arg, t_env *env, int d);
 void	dollar(t_list **arg, t_env *env);
-int		count_dollars(char *arg);
 void	clean_line(t_list **arg, t_env *env);
 //./lexing/collect_args.c
 void	collect_args(char *buff, t_lex *lex, t_list **arg);
@@ -147,7 +149,7 @@ void	ft_is_redirections(t_list **arg);
 int		double_quoting(char *buff, t_lex *lex, t_list **arg);
 //./lexing/ft_herdoc.c
 void	cmd_handler(int sig);
-void	ft_herdoc(t_list **arg, t_env *env);
+int		ft_herdoc(t_list **arg, t_env *env);
 //./lexing/single_quoting.c
 int		lex(char *buff, t_list **arg, t_env *env);
 //./lexing/lex.c
@@ -166,8 +168,5 @@ t_cmd	*split_pipe(t_list *arg);
 void	ft_wildcard(t_list **arg);
 //./minishell.c
 void	handler(int sig);
-void	printdub(char **content);///////////////////////debug
-void	ft_print_cmd(t_cmd *cmd);///////////////////////debug
-void	ft_print(t_list *arg);//////////////////////////debug
 
 #endif

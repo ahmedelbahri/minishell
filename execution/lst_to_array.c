@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_to_array.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: waelhamd <waelhamd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 08:03:51 by waelhamd          #+#    #+#             */
-/*   Updated: 2022/09/09 17:55:16 by waelhamd         ###   ########.fr       */
+/*   Updated: 2022/09/10 23:33:25 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ char	**lst_to_array(t_env *env, char *save)
 	if (!array)
 		return (NULL);
 	i = 0;
-	while (tmp) 
+	while (tmp)
 	{
 		save = ft_strjoin("=", tmp->content);
-		array[i] = ft_strjoin(tmp->name, save );
+		array[i] = ft_strjoin(tmp->name, save);
 		free(save);
 		save = NULL;
 		tmp = tmp->next;

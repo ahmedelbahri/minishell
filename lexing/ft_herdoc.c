@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 22:51:30 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/10 18:07:40 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/10 22:41:45 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static int	ft_read_herdoc(int fd[2], t_list *tmp, t_env *env)
 				free(s);
 			break ;
 		}
-		if (count_dollars(s) && tmp->next->quoted == 0)
+		if (ft_strchr(s, '$') && tmp->next->quoted == 0)
 			s = herdoc_dollar(s, env);
 		ft_putstr_fd(s, fd[1]);
 		ft_putstr_fd("\n", fd[1]);
@@ -88,7 +88,7 @@ static int	ft_read_herdoc(int fd[2], t_list *tmp, t_env *env)
 	exit(0);
 }
 
-void	ft_herdoc(t_list **arg, t_env *env)
+int	ft_herdoc(t_list **arg, t_env *env)
 {
 	int		f;
 	int		fd[2];
@@ -108,9 +108,10 @@ void	ft_herdoc(t_list **arg, t_env *env)
 			close(fd[1]);
 			wait(&f);
 			signal(SIGINT, handler);
-			if (f == 256 && !close(fd[0]))
-				return ;
+			if (f != 0 && !close(fd[0]))
+				return (g_exit_status = 1, 0);
 		}
 		tmp = tmp->next;
 	}
+	return (0);
 }

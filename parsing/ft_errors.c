@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 16:29:38 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/08/30 03:55:53 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/10 18:54:15 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 static int	invalid_dollar(t_list *arg)
 {
 	if (ft_lstsize(arg) == 1 && arg->quoted == 4)
+	{
+		g_exit_status = 0;
 		return (1);
+	}
 	return (0);
 }
 
@@ -45,6 +48,7 @@ static int	ft_dub_opp(t_list *arg)
 			|| (ft_lstsize(arg) == 1 && ft_is_opp(arg) && arg->quoted == 0))
 		{
 			ft_error("Error:\n Invalid opperators parsing.\n");
+			g_exit_status = 258;
 			return (1);
 		}
 		i++;

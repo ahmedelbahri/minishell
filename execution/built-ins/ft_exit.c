@@ -6,7 +6,7 @@
 /*   By: ahel-bah <ahel-bah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 19:54:50 by ahel-bah          #+#    #+#             */
-/*   Updated: 2022/09/10 02:21:37 by ahel-bah         ###   ########.fr       */
+/*   Updated: 2022/09/10 23:41:03 by ahel-bah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static int	exit_with_arg(char **content)
 	{
 		if (ft_isalpha(content[1][i]))
 		{
-			printf("Error:\n exit: %s: numeric argument required\n"
-				, content[1]);
+			printf("Error:\n exit: %s: numeric argument required\n",
+				content[1]);
 			return (255);
 		}
 		i++;
