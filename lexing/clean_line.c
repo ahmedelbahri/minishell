@@ -73,8 +73,7 @@ static void	ft_expand_exit_status(t_list **arg)
 	else if ((*arg)->quoted != 1 && (*arg)->content[0] == '$'
 		&& (*arg)->content[1] == '?')
 	{
-		ft_lstinsert(arg, ft_lstnew(
-				ft_strdup(ft_strdup(&(*arg)->content[2]), (*arg)->quoted));
+		ft_lstinsert(arg, ft_lstnew(ft_strdup(&(*arg)->content[2]), (*arg)->quoted));
 		free((*arg)->content);
 		(*arg)->content = ft_itoa(g_exit_status);
 	}
