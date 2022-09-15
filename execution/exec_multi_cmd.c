@@ -125,7 +125,7 @@ void	exec_all(t_cmd *cmd, t_env **env)
 		if (WIFSIGNALED(status) && flag != -1)
 		{
 			if (WTERMSIG(status))
-				g_exit_status = 127 + WTERMSIG(status);
+				g_exit_status = 128 + WTERMSIG(status);
 		}
 		else if (WIFEXITED(status) && flag != -1)
 			g_exit_status = WEXITSTATUS (status);
